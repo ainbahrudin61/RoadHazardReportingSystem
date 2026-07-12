@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+
+<div class="dashboard-container">
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+
+        <h2>Road Hazard</h2>
+
+        <a href="dashboard.html">🏠 Dashboard</a>
+        <a href="hazards.html" class="active">⚠️ Manage Hazards</a>
+        <a href="reports.html">📄 User Reports</a>
+
+        <button id="logoutBtn">
+            Logout
+        </button>
+
+    </div>
+
+
+    <!-- Main Content -->
+    <div class="main-content">
+
+        <h1>Admin Dashboard</h1>
+
+        <p>
+            Welcome, Administrator
+        </p>
+
+
+        <div class="card-container">
+
+            <div class="card">
+                <h3>Total Reports</h3>
+                <h1>0</h1>
+            </div>
+
+
+            <div class="card">
+                <h3>Pending</h3>
+                <h1>0</h1>
+            </div>
+
+
+            <div class="card">
+                <h3>In Progress</h3>
+                <h1>0</h1>
+            </div>
+
+
+            <div class="card">
+                <h3>Completed</h3>
+                <h1>0</h1>
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+<script type="module" src="../js/dashboard.js"></script>
+
+</body>
+</html>

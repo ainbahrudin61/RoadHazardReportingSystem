@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Add Hazard</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/style.css">
+
+</head>
+
+<body>
+
+    <div class="main-content">
+
+        <h1>Add New Hazard</h1>
+
+        <!-- Add Hazard Form -->
+        <form id="hazardForm">
+
+            <label for="hazardType">Hazard Type</label>
+            <select id="hazardType" required>
+                <option value="">-- Select Hazard Type --</option>
+                <option value="Pothole">Pothole</option>
+                <option value="Flood">Flood</option>
+                <option value="Road Crack">Road Crack</option>
+                <option value="Damaged Traffic Light">Damaged Traffic Light</option>
+                <option value="Fallen Tree">Fallen Tree</option>
+            </select>
+
+            <label for="description">Description</label>
+            <textarea
+                id="description"
+                rows="5"
+                placeholder="Enter hazard description"
+                required
+            ></textarea>
+
+            <label for="location">Location</label>
+            <input
+                type="text"
+                id="location"
+                placeholder="Enter location"
+                required
+            >
+
+            <label for="gps">GPS Coordinates</label>
+            <input
+                type="text"
+                id="gps"
+                placeholder="Example: 2.1896, 102.2501"
+            >
+
+            <label for="status">Status</label>
+            <select id="status" required>
+                <option value="Pending">Pending</option>
+                <option value="In Progress">In Progress</option>
+                <option value="Completed">Completed</option>
+            </select>
+
+            <label for="image">Upload Photo</label>
+            <input
+                type="file"
+                id="image"
+                accept="image/*"
+            >
+
+
+            <button type="submit">
+                Save Hazard
+            </button>
+
+        </form>
+
+    </div>
+
+    <!-- JavaScript -->
+    <!-- <script type="module" src="../js/hazard.js"></script> -->
+
+</body>
+
+<footer class="copyright">
+    <p>© 2026 Road Hazard Management System. All Rights Reserved.</p>
+</footer>
+
+</html>

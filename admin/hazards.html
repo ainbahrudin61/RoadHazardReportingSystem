@@ -1,0 +1,96 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Hazard Records</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+
+<div class="dashboard-container">
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+
+        <h2>Road Hazard</h2>
+
+        <a href="dashboard.html">🏠 Dashboard</a>
+        <a href="hazards.html" class="active">⚠️ Manage Hazards</a>
+        <a href="reports.html">📄 User Reports</a>
+
+        <button id="logoutBtn">Logout</button>
+
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+
+        <div class="page-header">
+
+            <h1>Manage Hazard Records</h1>
+
+            <a href="addHazard.html" class="add-button">
+                + Add New Hazard
+            </a>
+
+        </div>
+
+        <!-- Search & Filter -->
+        <div class="filter-section">
+
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Search hazard...">
+
+            <select id="statusFilter">
+                <option value="">All Status</option>
+                <option>Pending</option>
+                <option>In Progress</option>
+                <option>Completed</option>
+            </select>
+
+            <button id="searchBtn">Search</button>
+
+        </div>
+
+        <!-- Hazard Table -->
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>No</th>
+                    <th>Hazard Type</th>
+                    <th>Location</th>
+                    <th>Status</th>
+                    <th>Photo</th>
+                    <th>Action</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody id="hazardTableBody">
+
+                <!-- Firebase data will appear here -->
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+<script type="module" src="../js/hazard.js"></script>
+
+</body>
+</html>
+

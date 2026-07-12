@@ -1,0 +1,306 @@
+
+
+
+
+/*LOGIN PAGE*/
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+    background:#f4f6f9;
+}
+
+.login-container{
+    width:100%;
+    display:flex;
+    justify-content:center;
+}
+
+.login-box{
+    width:400px;
+    background:#fff;
+    padding:40px;
+    border-radius:12px;
+    box-shadow:0 5px 20px rgba(0,0,0,0.2);
+}
+
+.login-box h1{
+    text-align:center;
+    color:#1e3a8a;
+    margin-bottom:10px;
+}
+
+.login-box p{
+    text-align:center;
+    color:#666;
+    margin-bottom:30px;
+}
+
+label{
+    display:block;
+    margin-top:15px;
+    margin-bottom:5px;
+}
+
+input{
+    width:100%;
+    padding:12px;
+    border:1px solid #ccc;
+    border-radius:6px;
+}
+
+button{
+    width:150px;
+    margin-top:25px;
+    padding:12px;
+    background:#2563eb;
+    color:white;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
+    font-size:16px;
+}
+
+button:hover{
+    background:#1d4ed8;
+}
+
+
+/* Dashboard */
+
+.dashboard-container{
+    display: flex;
+    min-height: 100vh;
+}
+
+
+.sidebar{
+
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    width: 250px;
+    height: 100vh;
+
+    background: #1e3a8a;
+    color: white;
+
+    padding: 25px;
+
+    display: flex;
+    flex-direction: column;
+
+}
+
+.sidebar h2{
+
+    margin-bottom: 30px;
+
+}
+
+.sidebar a{
+
+    display: block;
+    color: white;
+    text-decoration: none;
+    padding: 12px 0;
+    margin: 10px 0;
+    transition: 0.3s;
+
+}
+
+.sidebar a:hover{
+
+    background: rgba(255,255,255,0.15);
+    padding-left: 10px;
+    border-radius: 5px;
+
+}
+
+.sidebar button{
+    
+    width: 100%;
+    background: #dc2626;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: auto;
+
+}
+
+.sidebar button:hover{
+
+    background: #b91c1c;
+    
+}
+
+
+.main-content{
+
+    margin-left:250px;
+    width:calc(100% - 250px);
+    padding:40px;
+
+}
+
+
+.card-container{
+
+    display:flex;
+    gap:20px;
+    margin-top:30px;
+
+}
+
+
+.card{
+
+    background:white;
+    padding:25px;
+    width:200px;
+    border-radius:10px;
+    box-shadow:0 4px 10px rgba(0,0,0,0.1);
+
+}
+
+/*untuk table dalam webpage*/
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:25px;
+}
+
+th,td{
+    border:1px solid #ddd;
+    padding:12px;
+    text-align:left;
+}
+
+th{
+    background:#2563eb;
+    color:white;
+}
+
+#addBtn{
+    width:220px;
+}
+
+
+
+/* ========================= */
+/* Manage Hazard Page */
+/* ========================= */
+
+.page-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
+}
+
+#addHazardBtn{
+    width:180px;
+}
+
+.filter-section{
+    display:flex;
+    gap:15px;
+    margin-bottom:20px;
+}
+
+.filter-section input,
+.filter-section select{
+     width:150px;
+    height:40px;
+    padding:10px;
+    border:1px solid #ccc;
+    border-radius:5px;
+}
+
+.filter-section button{
+    width:150px;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    background:#fff;
+}
+
+th{
+    background:#2563eb;
+    color:white;
+}
+
+th,
+td{
+    padding:12px;
+    border:1px solid #ddd;
+    text-align:center;
+}
+
+td img{
+    width:80px;
+    height:60px;
+    object-fit:cover;
+    border-radius:5px;
+}
+
+
+/* ========================= */
+/* Add Hazard Button */
+/* ========================= */
+
+
+.add-button {
+    width:150px;
+    height:40px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:0;
+    background-color:#2563eb;
+    color:white;
+    border:none;
+    border-radius:8px;
+    font-size:16px;
+    text-decoration:none;
+    cursor:pointer; 
+}
+
+.add-button:hover {
+    background-color: #1d4ed8;
+}
+
+.main-content{
+    position:relative;
+    z-index:999;
+}
+
+form,
+input,
+textarea,
+select,
+button{
+    position:relative;
+    z-index:1000;
+    pointer-events:auto;
+}
+
+.copyright{
+    text-align:center;
+    padding:15px;
+    background:#1f2937;
+    color:white;
+    font-size:14px;
+    margin-top:30px;
+}

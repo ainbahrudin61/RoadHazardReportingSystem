@@ -1,0 +1,23 @@
+// Import Firebase
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+import { getAuth } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+import { getFirestore } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+
+// Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyB_pzxQWE4mhzbm1hQiXg-GV573jYdh6NA",
+  authDomain: "road-hazard-management-s-8fa63.firebaseapp.com",
+  databaseURL: "https://road-hazard-management-s-8fa63-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "road-hazard-management-s-8fa63",
+  storageBucket: "road-hazard-management-s-8fa63.firebasestorage.app",
+  messagingSenderId: "639353178978",
+  appId: "1:639353178978:web:9ea25674ae63f5e7593a3b",
+  measurementId: "G-SRSG5M0D6Q"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+
+// Export supaya boleh digunakan dalam fail lain
+export const auth = getAuth(app);
+export const db = getFirestore(app);

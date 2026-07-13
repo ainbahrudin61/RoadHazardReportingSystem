@@ -155,11 +155,15 @@ button:hover{
 }
 
 
-.card-container{
+.summary-container{
 
     display:flex;
     gap:20px;
     margin-top:30px;
+
+}
+
+.recent-reports{
 
 }
 
@@ -173,6 +177,7 @@ button:hover{
     box-shadow:0 4px 10px rgba(0,0,0,0.1);
 
 }
+
 
 /*untuk table dalam webpage*/
 

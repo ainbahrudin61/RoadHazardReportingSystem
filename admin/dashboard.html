@@ -7,6 +7,8 @@
     <title>Admin Dashboard</title>
 
     <link rel="stylesheet" href="../css/style.css">
+
+    
 </head>
 
 <body>
@@ -31,44 +33,81 @@
 
     <!-- Main Content -->
     <div class="main-content">
-
-        <h1>Admin Dashboard</h1>
-
+        <br>
+        <h1>SMARTROAD ADMIN PANEL</h1>
+        <br>
         <p>
             Welcome, Administrator
         </p>
 
 
-        <div class="card-container">
+    <!-- Summary -->
+    <div class="summary-container">
 
-            <div class="card">
-                <h3>Total Reports</h3>
-                <h1>0</h1>
-            </div>
-
-
-            <div class="card">
-                <h3>Pending</h3>
-                <h1>0</h1>
-            </div>
-
-
-            <div class="card">
-                <h3>In Progress</h3>
-                <h1>0</h1>
-            </div>
-
-
-            <div class="card">
-                <h3>Completed</h3>
-                <h1>0</h1>
-            </div>
-
-
+        <div class="card">
+            <h3>Total Users</h3>
+            <h1>0</h1>
         </div>
 
+        <div class="card">
+            <h3>Total Reports</h3>
+            <h1>0</h1>
+        </div>
+
+        <div class="card">
+            <h3>Open Reports</h3>
+            <h1>0</h1>
+        </div>
+
+        <div class="card">
+            <h3>Resolved Reports</h3>
+            <h1>0</h1>
+        </div>
 
     </div>
+
+    <br>
+    <br>
+
+    <!-- Recent Reports -->
+    <div class="recent-reports">
+
+        <h2>Recent Reports</h2>
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>User</th>
+                    <th>Hazard</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+
+            <tbody id="recentTable">
+
+                <tr>
+                    <td>Ali</td>
+                    <td>Flood</td>
+                    <td>02/06/2026</td>
+                    <td>New</td>
+                </tr>
+
+                <tr>
+                    <td>Abu</td>
+                    <td>Road Damage</td>
+                    <td>02/06/2026</td>
+                    <td>Repair</td>
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+
 
 
 </div>

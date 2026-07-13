@@ -107,19 +107,22 @@ button:hover{
 .sidebar a{
 
     display: block;
-    color: white;
-    text-decoration: none;
-    padding: 12px 0;
-    margin: 10px 0;
-    transition: 0.3s;
+    color:white;
+    text-decoration:none;
+
+    padding:10px;
+    margin:3px 0;
+
+    border-radius:5px;
+    transition:0.3s;
+
 
 }
 
 .sidebar a:hover{
 
-    background: rgba(255,255,255,0.15);
-    padding-left: 10px;
-    border-radius: 5px;
+    background:rgba(255,255,255,0.15);
+    padding-left:15px;
 
 }
 
@@ -213,21 +216,39 @@ th{
 
 .filter-section{
     display:flex;
-    gap:15px;
+    gap:10px;
+    align-items:center;
     margin-bottom:20px;
+
 }
 
-.filter-section input,
-.filter-section select{
-     width:150px;
+.filter-section input{
+    width:350px;
     height:40px;
+
     padding:10px;
+
     border:1px solid #ccc;
     border-radius:5px;
 }
 
+/*dropdown filter*/
+.filter-section select{
+    width:200px;
+    height:40px;
+
+    padding:10px;
+
+    border:1px solid #ccc;
+    border-radius:5px;
+}
+
+/*search button*/
 .filter-section button{
-    width:150px;
+    width:120px;
+    height:40px;
+
+    margin-top:0;
 }
 
 table{

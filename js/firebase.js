@@ -1,7 +1,10 @@
+
+
+
 // Import Firebase
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
 import { getAuth } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
-import { getFirestore } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+import { getDatabase } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-database.js";
 
 // Firebase configuration
 const firebaseConfig = {
@@ -20,4 +23,4 @@ const app = initializeApp(firebaseConfig);
 
 // Export supaya boleh digunakan dalam fail lain
 export const auth = getAuth(app);
-export const db = getFirestore(app);
+export const database = getDatabase(app);

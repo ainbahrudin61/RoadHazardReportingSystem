@@ -8,7 +8,87 @@ const statusFilter = document.getElementById("statusFilter");
 const dateFilter = document.getElementById("dateFilter");
 const resetBtn = document.getElementById("resetBtn");
 
+<<<<<<< HEAD
 let allHazards = [];
+=======
+if(!tableBody){
+
+    console.error("Table body not found!");
+
+}
+
+const hazardsRef = ref(database, "Hazards");
+
+
+onValue(hazardsRef, (snapshot)=>{
+
+    console.log("Firebase data:", snapshot.val());
+
+    tableBody.innerHTML = "";
+
+
+    let number = 1;
+
+
+    snapshot.forEach((childSnapshot)=>{
+
+
+        const data = childSnapshot.val();
+        const hazardId = childSnapshot.key;
+
+
+        const row = `
+
+        <tr>
+
+            <td>${number}</td>
+            <td>${data.hazardType}</td>
+            <td>${data.location}</td>
+            <td>${data.status}</td>
+
+            <td>
+                ${
+                data.image 
+                ?
+                `<img src="${data.image}" width="80">`
+                :
+                "No Image"
+                }
+
+            </td>
+
+            <td class="action-icons">
+                
+                <button
+                    class="view-btn"
+                    onclick="viewHazard('${hazardId}')"
+                    title="View">
+                    <i class="fa-solid fa-eye"></i>
+                </button>
+
+                <button
+                    class="delete-btn"
+                    data-id="${hazardId}"
+                    title="Delete">
+                    <i class="fa-solid fa-trash"></i>
+                </button>
+
+            </td>
+
+
+        </tr>
+
+        `;
+
+
+        tableBody.innerHTML += row;
+
+
+        number++;
+
+
+    });
+>>>>>>> aff937f5c3d43415dc1e69367f33f0aa5dc462f0
 
 // ======================================
 // LOAD DATA FROM FIREBASE
@@ -30,11 +110,25 @@ onValue(hazardsRef, (snapshot) => {
     renderTable(allHazards);
 });
 
+<<<<<<< HEAD
 // ======================================
 // DISPLAY TABLE
 // ======================================
 function renderTable(data) {
     tableBody.innerHTML = "";
+=======
+// ===============================
+// View Hazard
+// ===============================
+
+window.viewHazard = function(hazardId){
+
+    window.location.href = `viewHazard.html?id=${hazardId}`;
+
+}
+
+
+>>>>>>> aff937f5c3d43415dc1e69367f33f0aa5dc462f0
 
     if (data.length === 0) {
         tableBody.innerHTML = `

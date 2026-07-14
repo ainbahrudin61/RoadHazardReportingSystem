@@ -45,7 +45,7 @@ if(!tableBody){
 
 }
 
-const hazardsRef = ref(database, "hazards");
+const hazardsRef = ref(database, "Hazards");
 
 
 onValue(hazardsRef, (snapshot)=>{

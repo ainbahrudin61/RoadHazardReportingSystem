@@ -88,7 +88,7 @@ hazardForm.addEventListener("submit", function(e){
 
     // Create new ID
 
-    const hazardRef = push(ref(database, "hazards"));
+    const hazardRef = push(ref(database, "Hazards"));
 
 
 

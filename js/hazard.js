@@ -120,6 +120,17 @@ onValue(hazardsRef, (snapshot)=>{
 
 });
 
+// ===============================
+// View Hazard
+// ===============================
+
+window.viewHazard = function(hazardId){
+
+    window.location.href = `viewHazard.html?id=${hazardId}`;
+
+}
+
+
 
 // ===============================
 // Delete Hazard

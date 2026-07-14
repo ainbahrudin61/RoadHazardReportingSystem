@@ -1,15 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>View Hazard</title>
+
+    <title>View Hazard Report</title>
 
     <link rel="stylesheet" href="../css/style.css">
+
+    <style>
+        .back-btn {
+    display: inline-block;
+    margin-bottom: 20px;
+    padding: 8px 15px;
+    background-color: #6b7280;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+}
+
+.back-btn:hover {
+    background-color: #4b5563;
+}
+    </style>
+
 </head>
+
+
 <body>
 
+
 <div class="dashboard-container">
+
 
     <!-- Sidebar -->
     <div class="sidebar">
@@ -17,53 +40,115 @@
         <h2>Road Hazard</h2>
 
         <a href="dashboard.html">🏠 Dashboard</a>
-        <a href="hazards.html" class="active">⚠️ Manage Hazards</a>
-        <a href="reports.html">📄 User Reports</a>
+        <a href="hazards.html">⚠️ Manage Hazards</a>
+        <a href="reports.html" class="active">
+            📄 User Reports
+        </a>
 
     </div>
 
+<a href="hazards.html" class="back-btn">← Back</a>
+
     <!-- Main Content -->
+
     <div class="main-content">
 
-        <h1>Hazard Details</h1>
+        <a href="hazards.html" class="back-btn">← Back</a>
+
+        <h1>Hazard Report Details</h1>
+
+
 
         <div class="detail-card">
 
-            <img
-                id="hazardPhoto"
-                src=""
-                width="350"
-                alt="Hazard Photo">
 
-            <p><strong>Hazard ID:</strong> <span id="hazardId"></span></p>
+            <img 
+            id="reportImage"
+            width="350"
+            alt="Report Image">
 
-            <p><strong>Hazard Type:</strong> <span id="hazardType"></span></p>
 
-            <p><strong>Description:</strong> <span id="description"></span></p>
 
-            <p><strong>Location:</strong> <span id="location"></span></p>
+            <p>
+                <strong>Report ID:</strong>
+                <span id="reportId"></span>
+            </p>
 
-            <p><strong>Latitude:</strong> <span id="latitude"></span></p>
 
-            <p><strong>Longitude:</strong> <span id="longitude"></span></p>
+            <p>
+                <strong>User Name:</strong>
+                <span id="userName"></span>
+            </p>
 
-            <p><strong>Status:</strong> <span id="status"></span></p>
 
-            <p><strong>Date:</strong> <span id="date"></span></p>
+            <p>
+                <strong>Hazard Type:</strong>
+                <span id="hazardType"></span>
+            </p>
+
+
+
+            <p>
+                <strong>Description:</strong>
+                <span id="description"></span>
+            </p>
+
+
+
+            <p>
+                <strong>Location:</strong>
+                <span id="location"></span>
+            </p>
+
+
+
+            <p>
+                <strong>Latitude:</strong>
+                <span id="latitude"></span>
+            </p>
+
+
+
+            <p>
+                <strong>Longitude:</strong>
+                <span id="longitude"></span>
+            </p>
+
+
+
+            <p>
+                <strong>Status:</strong>
+                <span id="status"></span>
+            </p>
+
+
+
+            <p>
+                <strong>Date:</strong>
+                <span id="date"></span>
+            </p>
+
+
 
             <br>
 
-            <a href="hazards.html" class="add-button">
-                Back
-            </a>
+
+            
+
 
         </div>
 
+
     </div>
+
 
 </div>
 
-<script type="module" src="../js/viewHazard.js"></script>
+
+
+<script type="module" src="../js/viewReport.js"></script>
+
 
 </body>
+
 </html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>View Hazard</title>
+
+<link rel="stylesheet" href="../css/style.css">
+
+</head>
+
+<body>
+
+<div class="dashboard-container">
+
+    <!-- Sidebar -->
+
+    <aside class="sidebar">
+
+        <h2>SmartRoad</h2>
+
+        <a href="dashboard.html">🏠 Dashboard</a>
+
+        <a href="hazards.html" class="active">
+            ⚠️ Manage Hazards
+        </a>
+
+        <a href="reports.html">
+            📄 User Reports
+        </a>
+
+        <button id="logoutBtn">
+            Logout
+        </button>
+
+    </aside>
+
+    <!-- Main Content -->
+
+    <main class="main-content">
+
+        <div class="page-header">
+
+            <h1>Hazard Details</h1>
+
+            <a href="hazards.html" class="add-button">
+
+                ← Back
+
+            </a>
+
+        </div>
+
+        <div class="detail-card">
+
+            <div class="image-section">
+
+                <img
+                    id="hazardPhoto"
+                    src=""
+                    alt="Hazard Image">
+
+            </div>
+
+            <div class="detail-section">
+
+                <table class="detail-table">
+
+                    <tr>
+                        <th>Hazard ID</th>
+                        <td id="hazardId"></td>
+                    </tr>
+
+                    <tr>
+                        <th>Reported By</th>
+                        <td id="username"></td>
+                    </tr>
+
+                    <tr>
+                        <th>Hazard Type</th>
+                        <td id="hazardType"></td>
+                    </tr>
+
+                    <tr>
+                        <th>Description</th>
+                        <td id="description"></td>
+                    </tr>
+
+                    <tr>
+                        <th>Location</th>
+                        <td id="location"></td>
+                    </tr>
+
+                    <tr>
+                        <th>Latitude</th>
+                        <td id="latitude"></td>
+                    </tr>
+
+                    <tr>
+                        <th>Longitude</th>
+                        <td id="longitude"></td>
+                    </tr>
+
+                    <tr>
+                        <th>Date</th>
+                        <td id="date"></td>
+                    </tr>
+
+                    <tr>
+                        <th>Time</th>
+                        <td id="time"></td>
+                    </tr>
+
+                    <tr>
+                        <th>Status</th>
+                        <td>
+
+                            <span id="statusBadge"></span>
+
+                        </td>
+
+                    </tr>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </main>
+
+</div>
+
+<script type="module" src="../js/viewHazard.js"></script>
+
+</body>
+
+</html>

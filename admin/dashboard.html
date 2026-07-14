@@ -2,13 +2,14 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard</title>
+
+    <title>SmartRoad Admin Dashboard</title>
 
     <link rel="stylesheet" href="../css/style.css">
 
-    
 </head>
 
 <body>
@@ -16,104 +17,105 @@
 <div class="dashboard-container">
 
     <!-- Sidebar -->
-    <div class="sidebar">
+    <aside class="sidebar">
 
-        <h2>Road Hazard</h2>
+        <h2>SmartRoad</h2>
 
-        <a href="dashboard.html">🏠 Dashboard</a>
-        <a href="hazards.html" class="active">⚠️ Manage Hazards</a>
+        <a href="dashboard.html" class="active">🏠 Dashboard</a>
+        <a href="hazards.html">⚠️ Manage Hazards</a>
         <a href="reports.html">📄 User Reports</a>
 
-        <button id="logoutBtn">
-            Logout
-        </button>
+        <button id="logoutBtn">Logout</button>
 
-    </div>
-
+    </aside>
 
     <!-- Main Content -->
-    <div class="main-content">
-        <br>
-        <h1>SMARTROAD ADMIN PANEL</h1>
-        <br>
-        <p>
-            Welcome back, Admin.
-        </p>
+    <main class="main-content">
 
+        <div class="dashboard-header">
 
-            <!-- Summary -->
-            <div class="summary-container">
+            <h1>SMARTROAD ADMIN PANEL</h1>
 
-                <div class="card">
-                    <h3>Total Users</h3>
-                    <h1 id="totalUsers">0</h1>
-                </div>
+            <p>Welcome back, Administrator.</p>
 
-                <div class="card">
-                    <h3>Total Reports</h3>
-                    <h1 id="totalReports">0</h1>
-                </div>
+        </div>
 
-                <div class="card">
-                    <h3>Open Reports</h3>
-                    <h1 id="openReports">0</h1>
-                </div>
+        <!-- Summary Cards -->
 
-                <div class="card">
-                    <h3>Resolved Reports</h3>
-                    <h1 id="resolvedReports">0</h1>
-                </div>
+        <div class="summary-container">
+
+            <div class="card">
+                <h3>Total Users</h3>
+                <h1 id="totalUsers">0</h1>
+            </div>
+
+            <div class="card">
+                <h3>Total Reports</h3>
+                <h1 id="totalReports">0</h1>
+            </div>
+
+            <div class="card">
+                <h3>New</h3>
+                <h1 id="newReports">0</h1>
+            </div>
+
+            <div class="card">
+                <h3>Under Investigation</h3>
+                <h1 id="investigationReports">0</h1>
+            </div>
+
+            <div class="card">
+                <h3>Resolved</h3>
+                <h1 id="resolvedReports">0</h1>
+            </div>
+
+        </div>
+
+        <!-- Recent Reports -->
+
+        <div class="recent-reports">
+
+            <div class="table-header">
+
+                <h2>Recent Hazard Reports</h2>
 
             </div>
 
-    <br>
-    <br>
+            <table>
 
-    <!-- Recent Reports -->
-    <div class="recent-reports">
+                <thead>
 
-        <h2>Recent Reports</h2>
+                    <tr>
 
-        <table>
+                        <th>No</th>
+                        <th>User</th>
+                        <th>Hazard Type</th>
+                        <th>Location</th>
+                        <th>Date</th>
+                        <th>Status</th>
 
-            <thead>
-                <tr>
-                    <th>User</th>
-                    <th>Hazard</th>
-                    <th>Date</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
+                    </tr>
 
-            <tbody id="recentTable">
+                </thead>
 
-                <tr>
-                    <td>Ali</td>
-                    <td>Flood</td>
-                    <td>02/06/2026</td>
-                    <td>New</td>
-                </tr>
+                <tbody id="recentTable">
 
-                <tr>
-                    <td>Abu</td>
-                    <td>Road Damage</td>
-                    <td>02/06/2026</td>
-                    <td>Repair</td>
-                </tr>
+                    <!-- Firebase -->
 
-            </tbody>
+                </tbody>
 
-        </table>
+            </table>
 
-    </div>
+        </div>
 
-
-
+    </main>
 
 </div>
-
 
 <script type="module" src="../js/dashboard.js"></script>
 
 </body>
+
 </html>
+
+

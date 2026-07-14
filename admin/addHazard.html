@@ -3,247 +3,195 @@
 
 <head>
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Add Hazard</title>
+<title>Add Hazard</title>
 
-    <!-- CSS -->
-    <!-- <link rel="stylesheet" href="../css/style.css"> -->
-
-    <style>
-
-        *{
-            margin:0;
-            padding:0;
-            box-sizing:border-box;
-            font-family:Arial, Helvetica, sans-serif;
-        }
-
-        body{
-            background:#f4f6f9;
-            display:flex;
-            justify-content:center;
-            align-items:center;
-            min-height:100vh;
-            flex-direction:column;
-        }
-
-        .main-content{
-            width:500px;
-            background:#fff;
-            padding:30px;
-            border-radius:10px;
-            box-shadow:0 2px 10px rgba(0,0,0,0.15);
-        }
-
-        h1{
-            text-align:center;
-            margin-bottom:25px;
-            color:#333;
-        }
-
-        label{
-            display:block;
-            margin-top:15px;
-            margin-bottom:5px;
-            font-weight:bold;
-        }
-
-        input,
-        select,
-        textarea{
-            width:100%;
-            padding:10px;
-            border:1px solid #ccc;
-            border-radius:5px;
-            font-size:14px;
-        }
-
-        textarea{
-            resize:vertical;
-        }
-
-        button{
-            width:100%;
-            padding:12px;
-            margin-top:25px;
-            background:#007bff;
-            color:white;
-            border:none;
-            border-radius:5px;
-            font-size:16px;
-            cursor:pointer;
-            transition:0.3s;
-        }
-
-        button:hover{
-            background:#0056b3;
-        }
-
-        .copyright{
-            margin-top:20px;
-            text-align:center;
-            font-size:13px;
-            color:#777;
-        }
-
-        .back-btn{
-            position:fixed;
-            top:20px;
-            left:20px;
-
-            background:#007bff;
-            color:white;
-            text-decoration:none;
-
-            padding:10px 18px;
-            border-radius:6px;
-
-            font-size:15px;
-            transition:0.3s;
-        }
-
-        .back-btn:hover{
-            background:#0056b3;
-        }
-</style>
+<link rel="stylesheet" href="../css/style.css">
 
 </head>
 
 <body>
-     
-    <a href="hazards.html" class="back-btn">← Back</a>
 
-    <div class="main-content">
+<div class="dashboard-container">
 
-        <h1>Add New Hazard</h1>
+    <aside class="sidebar">
 
-        <!-- Add Hazard Form -->
-        <form id="hazardForm">
+        <h2>SmartRoad</h2>
 
-            <label for="hazardType">Hazard Type</label>
-            <select id="hazardType" required>
-                <option value="">-- Select Hazard Type --</option>
-                <option value="Pothole">Pothole</option>
-                <option value="Flood">Flood</option>
-                <option value="Road Crack">Road Crack</option>
-                <option value="Damaged Traffic Light">Damaged Traffic Light</option>
-                <option value="Fallen Tree">Fallen Tree</option>
-            </select>
+        <a href="dashboard.html">🏠 Dashboard</a>
 
-            <label for="description">Description</label>
-            <textarea
-                id="description"
-                rows="5"
-                placeholder="Enter hazard description"
-                required
-            ></textarea>
+        <a href="hazards.html" class="active">
+            ⚠️ Manage Hazards
+        </a>
 
-            <label for="location">Location</label>
-            <input
-                type="text"
-                id="location"
-                placeholder="Enter location"
-                required
-            >
+        <a href="reports.html">
+            📄 User Reports
+        </a>
 
-            <label for="gps">GPS Coordinates</label>
-            <input
-                type="text"
-                id="gps"
-                placeholder="Example: 2.1896, 102.2501"
-            >
+        <button id="logoutBtn">
+            Logout
+        </button>
 
-            <label for="status">Status</label>
-            <select id="status" required>
-                <option value="Pending">Pending</option>
-                <option value="In Progress">In Progress</option>
-                <option value="Completed">Completed</option>
-            </select>
+    </aside>
 
-            <label for="image">Upload Photo</label>
-            <input
-                type="file"
-                id="image"
-                accept="image/*"
-            >
+    <main class="main-content">
 
+        <div class="page-header">
 
-            <button type="submit">
-                Save Hazard
-            </button>
+            <h1>Add New Hazard</h1>
 
-        </form>
+            <a href="hazards.html" class="add-button">
 
-    </div>
+                ← Back
 
-    <script type="module">
-        // Import the functions you need from the SDKs you need
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
-        import { getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-database.js";
-        // TODO: Add SDKs for Firebase products that you want to use
-        // https://firebase.google.com/docs/web/setup#available-libraries
+            </a>
 
-        // Your web app's Firebase configuration
-        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-        const firebaseConfig = {
-            apiKey: "AIzaSyB_pzxQWE4mhzbm1hQiXg-GV573jYdh6NA",
-            authDomain: "road-hazard-management-s-8fa63.firebaseapp.com",
-            databaseURL: "https://road-hazard-management-s-8fa63-default-rtdb.asia-southeast1.firebasedatabase.app",
-            projectId: "road-hazard-management-s-8fa63",
-            storageBucket: "road-hazard-management-s-8fa63.firebasestorage.app",
-            messagingSenderId: "639353178978",
-            appId: "1:639353178978:web:7c5d45064a5008ae593a3b",
-            measurementId: "G-560F2XWTFY"
-        };
+        </div>
 
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const database = getDatabase(app);
-        const form = document.getElementById("hazardForm");
+        <div class="form-container">
 
-form.addEventListener("submit", function (e) {
+            <form id="hazardForm">
 
-    e.preventDefault();
+                <div class="form-group">
 
-    const hazardType = document.getElementById("hazardType").value;
-    const description = document.getElementById("description").value;
-    const location = document.getElementById("location").value;
-    const gps = document.getElementById("gps").value;
-    const status = document.getElementById("status").value;
+                    <label>Hazard Type</label>
 
-    push(ref(database, "Hazards"), {
+                    <select id="hazardType" required>
 
-        hazardType: hazardType,
-        description: description,
-        location: location,
-        gps: gps,
-        status: status
+                        <option value="">Select Hazard</option>
 
-    })
+                        <option>Pothole</option>
 
-    .then(() => {
+                        <option>Flood</option>
 
-        alert("Hazard added successfully!");
+                        <option>Road Crack</option>
 
-        form.reset();
+                        <option>Damaged Traffic Light</option>
 
-    })
+                        <option>Fallen Tree</option>
 
-    .catch((error) => {
+                        <option>Traffic Accident</option>
 
-        alert(error);
+                        <option>Damaged Road Sign</option>
 
-    });
+                    </select>
 
-});
-    </script>
+                </div>
+
+                <div class="form-group">
+
+                    <label>Description</label>
+
+                    <textarea
+                        id="description"
+                        rows="5"
+                        required>
+                    </textarea>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label>Location</label>
+
+                    <input
+                        type="text"
+                        id="location"
+                        required>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label>Latitude</label>
+
+                    <input
+                        type="number"
+                        step="any"
+                        id="latitude"
+                        required>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label>Longitude</label>
+
+                    <input
+                        type="number"
+                        step="any"
+                        id="longitude"
+                        required>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label>Status</label>
+
+                    <select id="status">
+
+                        <option selected>
+
+                            New
+
+                        </option>
+
+                        <option>
+
+                            Under Investigation
+
+                        </option>
+
+                        <option>
+
+                            Resolved
+
+                        </option>
+
+                    </select>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label>Upload Image</label>
+
+                    <input
+                        type="file"
+                        id="image"
+                        accept="image/*">
+
+                </div>
+
+                <div class="form-group">
+
+                    <img
+                        id="previewImage"
+                        style="display:none;max-width:300px;border-radius:10px;">
+
+                </div>
+
+                <button
+                    type="submit">
+
+                    Save Hazard
+
+                </button>
+
+            </form>
+
+        </div>
+
+    </main>
+
+</div>
+
+<script type="module" src="../js/addHazard.js"></script>
 
 </body>
 
-<footer class="copyright">
-    <p>© 2026 Road Hazard Management System. All Rights Reserved.</p>
-</footer>
-
 </html>
+

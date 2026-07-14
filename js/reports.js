@@ -10,34 +10,28 @@ import {
     signOut
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 
-const tableBody = document.getElementById("hazardTableBody");
-
+const tableBody = document.getElementById("reportTableBody");
 const searchInput = document.getElementById("searchInput");
-
 const statusFilter = document.getElementById("statusFilter");
-
 const dateFilter = document.getElementById("dateFilter");
-
 const resetBtn = document.getElementById("resetBtn");
 
-let allHazards = [];
+let reports = [];
 
 
-// ======================================
-// LOAD DATA FROM FIREBASE
-// ======================================
+// =======================================
+// LOAD REPORTS
+// =======================================
 
-const hazardsRef = ref(database, HAZARD_PATH);
+onValue(ref(database, HAZARD_PATH), (snapshot) => {
 
-onValue(hazardsRef, (snapshot) => {
-
-    allHazards = [];
+    reports = [];
 
     if (snapshot.exists()) {
 
         snapshot.forEach((child) => {
 
-            allHazards.push({
+            reports.push({
 
                 id: child.key,
 
@@ -49,22 +43,36 @@ onValue(hazardsRef, (snapshot) => {
 
     }
 
-    renderTable(allHazards);
+    reports.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+
+    renderTable(reports);
 
 });
 
 
-// ======================================
+// =======================================
 // DISPLAY TABLE
-// ======================================
+// =======================================
 
 function renderTable(data) {
 
     tableBody.innerHTML = "";
 
-    data.reverse();
+    if (data.length === 0) {
 
-    data.forEach((hazard, index) => {
+        tableBody.innerHTML = `
+            <tr>
+                <td colspan="10">
+                    No report found.
+                </td>
+            </tr>
+        `;
+
+        return;
+
+    }
+
+    data.forEach((report, index) => {
 
         tableBody.innerHTML += `
 
@@ -75,30 +83,32 @@ function renderTable(data) {
             <td>
 
                 ${
-                    hazard.image
+                    report.image
                     ?
-
-                    `<img src="${hazard.image}" class="table-image">`
-
+                    `<img src="${report.image}" class="table-image">`
                     :
-
                     "No Image"
-
                 }
 
             </td>
 
-            <td>${hazard.hazardType}</td>
+            <td>${report.username || "-"}</td>
 
-            <td>${hazard.location}</td>
+            <td>${report.hazardType}</td>
 
-            <td>${hazard.date || "-"}</td>
+            <td>${report.description}</td>
+
+            <td>${report.location}</td>
+
+            <td>${report.date}</td>
+
+            <td>${report.time}</td>
 
             <td>
 
-                <span class="status ${statusClass(hazard.status)}">
+                <span class="status ${statusClass(report.status)}">
 
-                    ${hazard.status}
+                    ${report.status}
 
                 </span>
 
@@ -108,23 +118,15 @@ function renderTable(data) {
 
                 <button
                     class="view-btn"
-                    data-id="${hazard.id}">
+                    data-id="${report.id}">
 
                     <i class="fa-solid fa-eye"></i>
 
                 </button>
 
                 <button
-                    class="edit-btn"
-                    data-id="${hazard.id}">
-
-                    <i class="fa-solid fa-pen"></i>
-
-                </button>
-
-                <button
                     class="delete-btn"
-                    data-id="${hazard.id}">
+                    data-id="${report.id}">
 
                     <i class="fa-solid fa-trash"></i>
 
@@ -141,9 +143,9 @@ function renderTable(data) {
 }
 
 
-// ======================================
+// =======================================
 // STATUS COLOUR
-// ======================================
+// =======================================
 
 function statusClass(status){
 
@@ -166,17 +168,11 @@ function statusClass(status){
 }
 
 
-// ======================================
-// LIVE SEARCH
-// ======================================
+// =======================================
+// SEARCH & FILTER
+// =======================================
 
-searchInput.addEventListener("input", filterData);
-
-statusFilter.addEventListener("change", filterData);
-
-dateFilter.addEventListener("change", filterData);
-
-function filterData(){
+function filterReports(){
 
     const keyword = searchInput.value.toLowerCase();
 
@@ -184,23 +180,27 @@ function filterData(){
 
     const date = dateFilter.value;
 
-    const filtered = allHazards.filter((hazard)=>{
+    const filtered = reports.filter((item)=>{
 
         const matchKeyword =
 
-        hazard.hazardType.toLowerCase().includes(keyword)
+            (item.username || "").toLowerCase().includes(keyword)
 
-        ||
+            ||
 
-        hazard.location.toLowerCase().includes(keyword);
+            (item.hazardType || "").toLowerCase().includes(keyword)
+
+            ||
+
+            (item.location || "").toLowerCase().includes(keyword);
 
         const matchStatus =
 
-        status==="" || hazard.status===status;
+            status === "" || item.status === status;
 
         const matchDate =
 
-        date==="" || hazard.date===date;
+            date === "" || item.date === date;
 
         return matchKeyword && matchStatus && matchDate;
 
@@ -210,10 +210,16 @@ function filterData(){
 
 }
 
+searchInput.addEventListener("input", filterReports);
 
-// ======================================
-// RESET FILTER
-// ======================================
+statusFilter.addEventListener("change", filterReports);
+
+dateFilter.addEventListener("change", filterReports);
+
+
+// =======================================
+// RESET
+// =======================================
 
 resetBtn.addEventListener("click",()=>{
 
@@ -223,14 +229,14 @@ resetBtn.addEventListener("click",()=>{
 
     dateFilter.value="";
 
-    renderTable(allHazards);
+    renderTable(reports);
 
 });
 
 
-// ======================================
-// TABLE BUTTONS
-// ======================================
+// =======================================
+// ACTION BUTTONS
+// =======================================
 
 tableBody.addEventListener("click",async(e)=>{
 
@@ -246,30 +252,34 @@ tableBody.addEventListener("click",async(e)=>{
 
     }
 
-    if(button.classList.contains("edit-btn")){
-
-        window.location.href=`editHazard.html?id=${id}`;
-
-    }
-
     if(button.classList.contains("delete-btn")){
 
-        const confirmDelete = confirm("Delete this hazard report?");
+        const confirmDelete = confirm("Delete this report?");
 
         if(!confirmDelete) return;
 
-        await remove(ref(database,`${HAZARD_PATH}/${id}`));
+        try{
 
-        alert("Hazard deleted successfully.");
+            await remove(ref(database,`${HAZARD_PATH}/${id}`));
+
+            alert("Report deleted successfully.");
+
+        }
+
+        catch(error){
+
+            alert(error.message);
+
+        }
 
     }
 
 });
 
 
-// ======================================
+// =======================================
 // LOGOUT
-// ======================================
+// =======================================
 
 document.getElementById("logoutBtn").addEventListener("click",async()=>{
 
@@ -280,4 +290,3 @@ document.getElementById("logoutBtn").addEventListener("click",async()=>{
     window.location.href="login.html";
 
 });
-

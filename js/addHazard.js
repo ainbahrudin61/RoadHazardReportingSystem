@@ -1,70 +1,82 @@
-import { database } from "./firebase-config.js";
+import {
+    auth,
+    database,
+    HAZARD_PATH
+} from "./firebase-config.js";
 
-import { 
-    ref, 
-    push, 
-    set 
+import {
+    ref,
+    push,
+    set
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-database.js";
 
-
-// Get form elements
-
-const hazardForm = document.getElementById("hazardForm");
-
-const imageInput = document.getElementById("image");
-
-const previewImage = document.getElementById("previewImage");
-
-let imageBase64 = "";
+import {
+    signOut
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 
 
-// ============================
-// Image Preview
-// ============================
+// =========================================
+// LOGOUT
+// =========================================
 
-imageInput.addEventListener("change", function(){
+document.getElementById("logoutBtn").addEventListener("click", async () => {
 
-    const file = this.files[0];
+    if (!confirm("Logout now?")) return;
 
+    await signOut(auth);
 
-    if(file){
-
-        const reader = new FileReader();
-
-
-        reader.onload = function(e){
-
-            imageBase64 = e.target.result;
-
-            previewImage.src = imageBase64;
-
-            previewImage.style.display = "block";
-
-        };
-
-
-        reader.readAsDataURL(file);
-
-    }
+    window.location.href = "login.html";
 
 });
 
 
+// =========================================
+// IMAGE PREVIEW
+// =========================================
 
-// ============================
-// Save Hazard Data
-// ============================
+const imageInput = document.getElementById("image");
+const previewImage = document.getElementById("previewImage");
 
-hazardForm.addEventListener("submit", function(e){
+let imageBase64 = "";
+
+imageInput.addEventListener("change", function () {
+
+    const file = this.files[0];
+
+    if (!file) return;
+
+    const reader = new FileReader();
+
+    reader.onload = function (e) {
+
+        imageBase64 = e.target.result;
+
+        previewImage.src = imageBase64;
+
+        previewImage.style.display = "block";
+
+    };
+
+    reader.readAsDataURL(file);
+
+});
+
+
+// =========================================
+// SAVE HAZARD
+// =========================================
+
+const form = document.getElementById("hazardForm");
+
+form.addEventListener("submit", async (e) => {
 
     e.preventDefault();
 
-
     const hazardType = document.getElementById("hazardType").value;
 
-    const description = document.getElementById("description").value;
+    const description = document.getElementById("description").value.trim();
 
-    const location = document.getElementById("location").value;
+    const location = document.getElementById("location").value.trim();
 
     const latitude = document.getElementById("latitude").value;
 
@@ -73,78 +85,97 @@ hazardForm.addEventListener("submit", function(e){
     const status = document.getElementById("status").value;
 
 
+    // ======================
+    // Validation
+    // ======================
 
-    // Check image
+    if (
+        hazardType === "" ||
+        description === "" ||
+        location === "" ||
+        latitude === "" ||
+        longitude === ""
+    ) {
 
-    if(imageBase64 === ""){
-
-        alert("Please upload hazard image");
+        alert("Please complete all required fields.");
 
         return;
 
     }
 
 
+    // ======================
+    // Date & Time
+    // ======================
 
-    // Create new ID
+    const now = new Date();
 
-    const hazardRef = push(ref(database, "Hazards"));
+    const date = now.toISOString().split("T")[0];
+
+    const time = now.toLocaleTimeString();
+
+    const createdAt = now.getTime();
 
 
+    // ======================
+    // Firebase
+    // ======================
 
-    // Data structure
+    const newHazardRef = push(ref(database, HAZARD_PATH));
 
     const hazardData = {
 
+        hazardId: newHazardRef.key,
 
-        hazardId: hazardRef.key,
+        username: auth.currentUser?.email || "Admin",
 
-        hazardType: hazardType,
+        hazardType,
 
-        description: description,
+        description,
 
-        location: location,
+        location,
 
-        latitude: latitude,
+        latitude,
 
-        longitude: longitude,
+        longitude,
 
-        status: status,
+        status,
 
         image: imageBase64,
 
-        createdAt: new Date().toLocaleString()
+        date,
 
+        time,
+
+        createdAt
 
     };
 
 
+    try {
 
-    // Save to Firebase
+        await set(newHazardRef, hazardData);
 
-    set(hazardRef, hazardData)
+        alert("Hazard added successfully.");
 
-    .then(()=>{
+        form.reset();
 
+        previewImage.style.display = "none";
 
-        alert("Hazard added successfully!");
-
+        imageBase64 = "";
 
         window.location.href = "hazards.html";
 
+    }
 
-    })
-
-    .catch((error)=>{
-
+    catch (error) {
 
         console.error(error);
 
-        alert("Failed to add hazard");
+        alert("Failed to save hazard.");
 
-
-    });
-
-
+    }
 
 });
+}
+

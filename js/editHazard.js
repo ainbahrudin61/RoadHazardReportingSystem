@@ -1,4 +1,4 @@
-import { database } from "./firebase-config.js";
+import { auth, database, HAZARD_PATH } from "./firebase-config.js";
 
 import {
     ref,
@@ -7,46 +7,45 @@ import {
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-database.js";
 
 import {
-    auth
-} from "./firebase-config.js";
-
-import {
     signOut
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 
 
-// =================================
-// Logout
-// =================================
+// ===========================================
+// LOGOUT
+// ===========================================
 
-document.getElementById("logoutBtn").addEventListener("click", () => {
+document.getElementById("logoutBtn").addEventListener("click", async () => {
 
-    signOut(auth)
-    .then(() => {
+    if (!confirm("Logout now?")) return;
 
-        alert("Logged out");
+    await signOut(auth);
 
-        window.location.href = "login.html";
-
-    });
+    window.location.href = "login.html";
 
 });
 
 
-
-// =================================
-// Get Hazard ID
-// =================================
+// ===========================================
+// GET HAZARD ID
+// ===========================================
 
 const params = new URLSearchParams(window.location.search);
 
 const hazardId = params.get("id");
 
+if (!hazardId) {
+
+    alert("Invalid Hazard ID.");
+
+    window.location.href = "hazards.html";
+
+}
 
 
-// =================================
-// Form Elements
-// =================================
+// ===========================================
+// FORM
+// ===========================================
 
 const form = document.getElementById("editHazardForm");
 
@@ -57,123 +56,126 @@ const photoInput = document.getElementById("photo");
 let imageBase64 = "";
 
 
+// ===========================================
+// LOAD DATA
+// ===========================================
 
-// =================================
-// Load Hazard Data
-// =================================
-
-const hazardRef = ref(database, `hazards/${hazardId}`);
+const hazardRef = ref(database, `${HAZARD_PATH}/${hazardId}`);
 
 get(hazardRef)
 
-.then((snapshot)=>{
+.then((snapshot) => {
 
-    if(snapshot.exists()){
+    if (!snapshot.exists()) {
 
-        const data = snapshot.val();
+        alert("Hazard not found.");
 
-        document.getElementById("hazardType").value = data.hazardType;
+        window.location.href = "hazards.html";
 
-        document.getElementById("location").value = data.location;
+        return;
 
-        document.getElementById("description").value = data.description;
+    }
 
-        document.getElementById("status").value = data.status;
+    const data = snapshot.val();
 
-        imageBase64 = data.image;
+    document.getElementById("hazardType").value = data.hazardType;
+
+    document.getElementById("description").value = data.description;
+
+    document.getElementById("location").value = data.location;
+
+    document.getElementById("latitude").value = data.latitude;
+
+    document.getElementById("longitude").value = data.longitude;
+
+    document.getElementById("status").value = data.status;
+
+    imageBase64 = data.image || "";
+
+    if (imageBase64 !== "") {
 
         previewImage.src = imageBase64;
 
     }
 
-    else{
-
-        alert("Hazard not found.");
-
-        window.location.href="hazards.html";
-
-    }
-
 })
 
-.catch((error)=>{
+.catch((error) => {
 
-    console.log(error);
+    console.error(error);
 
 });
 
 
+// ===========================================
+// CHANGE IMAGE
+// ===========================================
 
-
-// =================================
-// Preview New Image
-// =================================
-
-photoInput.addEventListener("change",function(){
+photoInput.addEventListener("change", function () {
 
     const file = this.files[0];
 
-    if(file){
+    if (!file) return;
 
-        const reader = new FileReader();
+    const reader = new FileReader();
 
-        reader.onload = function(e){
+    reader.onload = function (e) {
 
-            imageBase64 = e.target.result;
+        imageBase64 = e.target.result;
 
-            previewImage.src = imageBase64;
+        previewImage.src = imageBase64;
 
-        }
+    };
 
-        reader.readAsDataURL(file);
-
-    }
+    reader.readAsDataURL(file);
 
 });
 
 
+// ===========================================
+// UPDATE DATA
+// ===========================================
 
-
-// =================================
-// Update Hazard
-// =================================
-
-form.addEventListener("submit",(e)=>{
+form.addEventListener("submit", async (e) => {
 
     e.preventDefault();
 
+    const updatedData = {
 
-    const updatedData={
+        hazardType: document.getElementById("hazardType").value,
 
-        hazardType:document.getElementById("hazardType").value,
+        description: document.getElementById("description").value.trim(),
 
-        location:document.getElementById("location").value,
+        location: document.getElementById("location").value.trim(),
 
-        description:document.getElementById("description").value,
+        latitude: document.getElementById("latitude").value,
 
-        status:document.getElementById("status").value,
+        longitude: document.getElementById("longitude").value,
 
-        image:imageBase64
+        status: document.getElementById("status").value,
+
+        image: imageBase64,
+
+        updatedAt: new Date().getTime()
 
     };
 
+    try {
 
-    update(ref(database,`Hazards/${hazardId}`),updatedData)
+        await update(hazardRef, updatedData);
 
-    .then(()=>{
+        alert("Hazard updated successfully.");
 
-        alert("Hazard updated successfully!");
+        window.location.href = "hazards.html";
 
-        window.location.href="hazards.html";
+    }
 
-    })
+    catch (error) {
 
-    .catch((error)=>{
-
-        console.log(error);
+        console.error(error);
 
         alert("Failed to update hazard.");
 
-    });
+    }
 
 });

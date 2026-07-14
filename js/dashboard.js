@@ -1,130 +1,205 @@
-import { auth } from "./firebase-config.js";
-
-import { 
-    signOut 
-} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
-
-import { db } from "./firebase-config.js";
-
+import { auth, database, HAZARD_PATH, USER_PATH } from "./firebase-config.js";
 
 import {
     ref,
     onValue
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-database.js";
+
+import {
+    signOut
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 
 
-// GET USERS COUNT
+// ==============================
+// TOTAL USERS
+// ==============================
 
-const usersRef = ref(database, "users");
+const usersRef = ref(database, USER_PATH);
 
+onValue(usersRef, (snapshot) => {
 
-onValue(usersRef, (snapshot)=>{
+    let totalUsers = 0;
 
+    if (snapshot.exists()) {
+        totalUsers = snapshot.size;
+    }
 
-    let totalUsers = snapshot.size;
-
-
-    document.getElementById("totalUsers").innerHTML = totalUsers;
-
+    document.getElementById("totalUsers").textContent = totalUsers;
 
 });
 
 
+// ==============================
+// TOTAL REPORTS
+// ==============================
+
+const hazardRef = ref(database, HAZARD_PATH);
+
+onValue(hazardRef, (snapshot) => {
+
+    let totalReports = 0;
+    let newReports = 0;
+    let investigationReports = 0;
+    let resolvedReports = 0;
+
+    const reportList = [];
+
+    if (snapshot.exists()) {
+
+        snapshot.forEach((child) => {
+
+            const data = child.val();
+
+            totalReports++;
+
+            switch (data.status) {
+
+                case "New":
+                    newReports++;
+                    break;
+
+                case "Under Investigation":
+                    investigationReports++;
+                    break;
+
+                case "Resolved":
+                    resolvedReports++;
+                    break;
+
+            }
+
+            reportList.push({
+
+                id: child.key,
+
+                user: data.username || data.user || "-",
+
+                hazardType: data.hazardType || "-",
+
+                location: data.location || "-",
+
+                status: data.status || "-",
+
+                createdAt: data.createdAt || "",
+
+                date: data.date || ""
+
+            });
+
+        });
+
+    }
+
+    document.getElementById("totalReports").textContent = totalReports;
+
+    document.getElementById("newReports").textContent = newReports;
+
+    document.getElementById("investigationReports").textContent = investigationReports;
+
+    document.getElementById("resolvedReports").textContent = resolvedReports;
+
+    displayRecentReports(reportList);
+
+});
 
 
-// GET REPORTS DATA
+// ==============================
+// RECENT REPORTS
+// ==============================
 
+function displayRecentReports(reportList) {
 
-const reportsRef = ref(db,"hazards");
+    const table = document.getElementById("recentTable");
 
+    table.innerHTML = "";
 
-onValue(reportsRef,(snapshot)=>{
+    reportList.reverse();
 
-
-    let total = 0;
-    let open = 0;
-    let resolved = 0;
-
-
-    let table = document.getElementById("recentTable");
-
-
-    table.innerHTML="";
-
-
-    snapshot.forEach((child)=>{
-
-
-        let data = child.val();
-
-
-        total++;
-
-
-        if(data.status=="New")
-        {
-            open++;
-        }
-
-
-        if(data.status=="Resolved")
-        {
-            resolved++;
-        }
-
-
-
-        // display table
-
+    reportList.forEach((report, index) => {
 
         table.innerHTML += `
 
-        <tr>
+            <tr>
 
-            <td>${data.user || "Unknown"}</td>
+                <td>${index + 1}</td>
 
-            <td>${data.hazardType}</td>
+                <td>${report.user}</td>
 
-            <td>${data.date}</td>
+                <td>${report.hazardType}</td>
 
-            <td>${data.status}</td>
+                <td>${report.location}</td>
 
-        </tr>
+                <td>${report.date}</td>
+
+                <td>
+
+                    <span class="status ${formatStatus(report.status)}">
+
+                        ${report.status}
+
+                    </span>
+
+                </td>
+
+            </tr>
 
         `;
 
-
     });
 
+}
 
 
-    document.getElementById("totalReports").innerHTML = total;
+// ==============================
+// STATUS CLASS
+// ==============================
+
+function formatStatus(status) {
+
+    switch (status) {
+
+        case "New":
+            return "new";
+
+        case "Under Investigation":
+            return "investigation";
+
+        case "Resolved":
+            return "resolved";
+
+        default:
+            return "";
+
+    }
+
+}
 
 
-    document.getElementById("openReports").innerHTML = open;
+// ==============================
+// LOGOUT
+// ==============================
 
+document.getElementById("logoutBtn").addEventListener("click", async () => {
 
-    document.getElementById("resolvedReports").innerHTML = resolved;
+    const confirmLogout = confirm("Are you sure you want to logout?");
 
+    if (!confirmLogout) return;
 
+    try {
+
+        await signOut(auth);
+
+        alert("Logout successful.");
+
+        window.location.href = "login.html";
+
+    }
+
+    catch (error) {
+
+        alert(error.message);
+
+    }
 
 });
 
-
-const logoutBtn = document.getElementById("logoutBtn");
-
-
-logoutBtn.addEventListener("click",()=>{
-
-
-    signOut(auth)
-    .then(()=>{
-
-        alert("Logged out");
-
-        window.location.href="login.html";
-
-    });
-
-
-});

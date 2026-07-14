@@ -1,11 +1,10 @@
 
-import { db } from "./firebase-config.js";
+import { database } from "./firebase-config.js";
 
 import {
-
     ref,
-    onValue
-
+    onValue,
+    remove
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-database.js";
 
 import { auth } from "./firebase-config.js";
@@ -46,7 +45,7 @@ if(!tableBody){
 
 }
 
-const hazardsRef = ref(db, "hazards");
+const hazardsRef = ref(database, "Hazards");
 
 
 onValue(hazardsRef, (snapshot)=>{
@@ -63,6 +62,7 @@ onValue(hazardsRef, (snapshot)=>{
 
 
         const data = childSnapshot.val();
+        const hazardId = childSnapshot.key;
 
 
         const row = `
@@ -94,9 +94,12 @@ onValue(hazardsRef, (snapshot)=>{
                     Edit
                 </button>
 
-                <button class="delete-btn">
+                <button
+                    class="delete-btn"
+                    data-id="${hazardId}">
                     Delete
                 </button>
+
             </td>
 
 
@@ -113,5 +116,40 @@ onValue(hazardsRef, (snapshot)=>{
 
     });
 
+
+});
+
+
+// ===============================
+// Delete Hazard
+// ===============================
+
+tableBody.addEventListener("click", async (e) => {
+
+    if (!e.target.classList.contains("delete-btn")) {
+        return;
+    }
+
+    const hazardId = e.target.dataset.id;
+
+    const confirmDelete = confirm("Are you sure you want to delete this hazard?");
+
+    if (!confirmDelete) {
+        return;
+    }
+
+    try {
+
+        await remove(ref(database, `Hazards/${hazardId}`));
+
+        alert("Hazard deleted successfully!");
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert("Failed to delete hazard.");
+
+    }
 
 });

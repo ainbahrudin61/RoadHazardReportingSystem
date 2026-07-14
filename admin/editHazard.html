@@ -2,17 +2,11 @@
 <html lang="en">
 
 <head>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Edit Hazard</title>
-
-<link rel="stylesheet" href="../css/style.css">
-
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Hazard</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
 
 <body>
@@ -20,182 +14,90 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 <div class="dashboard-container">
 
     <aside class="sidebar">
-
         <h2>SmartRoad</h2>
-
         <a href="dashboard.html">🏠 Dashboard</a>
-
-        <a href="hazards.html" class="active">
-            ⚠️ Manage Hazards
-        </a>
-
-        <a href="reports.html">
-            📄 User Reports
-        </a>
-
-        <button id="logoutBtn">
-            Logout
-        </button>
-
+        <a href="hazards.html" class="active">⚠️ Manage Hazard Reports</a>
+        <button id="logoutBtn">Logout</button>
     </aside>
 
     <main class="main-content">
 
         <div class="page-header">
-
-            <h1>Edit Hazard</h1>
-
-            <a href="hazards.html" class="add-button">
-
-                ← Back
-
-            </a>
-
+            <h1>Edit Hazard Report</h1>
+            <a href="hazards.html" class="add-button">← Back</a>
         </div>
 
         <div class="form-container">
-
             <form id="editHazardForm">
 
                 <div class="form-group">
+                    <label>Username (Reported By)</label>
+                    <input type="text" id="username" readonly>
+                </div>
 
+                <div class="form-group">
                     <label>Hazard Type</label>
-
-                    <select
-                        id="hazardType"
-                        required>
-
+                    <select id="hazardType" required>
                         <option value="">Select Hazard</option>
-
                         <option>Pothole</option>
-
                         <option>Flood</option>
-
                         <option>Road Crack</option>
-
                         <option>Damaged Traffic Light</option>
-
                         <option>Fallen Tree</option>
-
                         <option>Traffic Accident</option>
-
                         <option>Damaged Road Sign</option>
-
                     </select>
-
                 </div>
 
                 <div class="form-group">
-
                     <label>Description</label>
-
-                    <textarea
-                        id="description"
-                        rows="5"
-                        required>
-                    </textarea>
-
+                    <textarea id="description" rows="5" required></textarea>
                 </div>
 
                 <div class="form-group">
-
                     <label>Location</label>
-
-                    <input
-                        type="text"
-                        id="location"
-                        required>
-
+                    <input type="text" id="location" required>
                 </div>
 
                 <div class="form-group">
-
                     <label>Latitude</label>
-
-                    <input
-                        type="number"
-                        step="any"
-                        id="latitude"
-                        required>
-
+                    <input type="number" step="any" id="latitude" required>
                 </div>
 
                 <div class="form-group">
-
                     <label>Longitude</label>
-
-                    <input
-                        type="number"
-                        step="any"
-                        id="longitude"
-                        required>
-
+                    <input type="number" step="any" id="longitude" required>
                 </div>
 
                 <div class="form-group">
-
                     <label>Status</label>
-
-                    <select
-                        id="status">
-
+                    <select id="status">
                         <option>New</option>
-
                         <option>Under Investigation</option>
-
                         <option>Resolved</option>
-
                     </select>
-
                 </div>
 
                 <div class="form-group">
-
                     <label>Current Image</label>
-
                     <br>
-
-                    <img
-                        id="previewImage"
-                        style="max-width:300px;border-radius:10px;">
-
+                    <img id="previewImage" style="max-width:300px;border-radius:10px;">
                 </div>
 
                 <div class="form-group">
-
                     <label>Replace Image</label>
-
-                    <input
-                        type="file"
-                        id="photo"
-                        accept="image/*">
-
+                    <input type="file" id="photo" accept="image/*">
                 </div>
 
                 <div class="form-buttons">
-
-                    <button
-                        type="submit"
-                        class="save-btn">
-
+                    <button type="submit" class="save-btn">
                         <i class="fa-solid fa-floppy-disk"></i>
-
                         Update Hazard
-
                     </button>
-
-                    <a
-                        href="hazards.html"
-                        class="cancel-btn">
-
-                        Cancel
-
-                    </a>
-
+                    <a href="hazards.html" class="cancel-btn">Cancel</a>
                 </div>
 
             </form>
-
         </div>
 
     </main>
@@ -207,4 +109,3 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 </body>
 
 </html>
-

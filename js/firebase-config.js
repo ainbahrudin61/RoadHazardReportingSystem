@@ -24,4 +24,3 @@ export const database = getDatabase(app);
 // Firebase Paths
 export const HAZARD_PATH = "Hazards";
 export const USER_PATH = "Users";
-

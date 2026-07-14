@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Hazard</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+</head>
+
+<body>
+
+<div class="dashboard-container">
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+
+        <h2>Road Hazard</h2>
+
+        <a href="dashboard.html">🏠 Dashboard</a>
+        <a href="hazards.html" class="active">⚠️ Manage Hazards</a>
+        <a href="reports.html">📄 User Reports</a>
+
+        <button id="logoutBtn">
+            Logout
+        </button>
+
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+
+        <div class="page-header">
+
+            <h1>Edit Hazard</h1>
+
+            <a href="hazards.html" class="add-button">
+                ← Back
+            </a>
+
+        </div>
+
+        <div class="form-container">
+
+            <form id="editHazardForm">
+
+                <!-- Hazard Type -->
+                <div class="form-group">
+
+                    <label>Hazard Type</label>
+
+                    <select id="hazardType" required>
+
+                        <option value="">Select Hazard</option>
+                        <option>Pothole</option>
+                        <option>Flood</option>
+                        <option>Broken Traffic Light</option>
+                        <option>Road Crack</option>
+                        <option>Landslide</option>
+                        <option>Fallen Tree</option>
+
+                    </select>
+
+                </div>
+
+                <!-- Location -->
+                <div class="form-group">
+
+                    <label>Location</label>
+
+                    <input
+                        type="text"
+                        id="location"
+                        placeholder="Enter location"
+                        required>
+
+                </div>
+
+                <!-- Description -->
+                <div class="form-group">
+
+                    <label>Description</label>
+
+                    <textarea
+                        id="description"
+                        rows="5"
+                        placeholder="Enter description"></textarea>
+
+                </div>
+
+                <!-- Status -->
+                <div class="form-group">
+
+                    <label>Status</label>
+
+                    <select id="status" required>
+
+                        <option>Pending</option>
+                        <option>In Progress</option>
+                        <option>Completed</option>
+
+                    </select>
+
+                </div>
+
+                <!-- Current Image -->
+                <div class="form-group">
+
+                    <label>Current Photo</label>
+
+                    <br>
+
+                    <img
+                        id="previewImage"
+                        src=""
+                        alt="Hazard Image"
+                        width="250">
+
+                </div>
+
+                <!-- Change Image -->
+                <div class="form-group">
+
+                    <label>Replace Photo (Optional)</label>
+
+                    <input
+                        type="file"
+                        id="photo"
+                        accept="image/*">
+
+                </div>
+
+                <!-- Buttons -->
+                <div class="form-buttons">
+
+                    <button
+                        type="submit"
+                        class="save-btn">
+
+                        <i class="fa-solid fa-floppy-disk"></i>
+                        Update Hazard
+
+                    </button>
+
+                    <a
+                        href="hazards.html"
+                        class="cancel-btn">
+
+                        Cancel
+
+                    </a>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script type="module" src="../js/editHazard.js"></script>
+
+</body>
+
+</html>

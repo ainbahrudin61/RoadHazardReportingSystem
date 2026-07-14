@@ -85,13 +85,13 @@ onValue(hazardsRef, (snapshot)=>{
 
             </td>
 
-            <td>
-                <button class="view-btn">
-                    View
+            <td class="action-icons">
+                <button class="view-btn" onclick="viewHazard('${hazardId}')">
+                    <i class="fa-solid fa-eye"></i>
                 </button>
 
-                <button class="edit-btn">
-                    Edit
+                <button class="edit-btn" onclick="editHazard('${hazardId}')">
+                    <i class="fa-solid fa-pen-to-square"></i>
                 </button>
 
                 <button

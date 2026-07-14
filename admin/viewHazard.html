@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Hazard</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<div class="dashboard-container">
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+
+        <h2>Road Hazard</h2>
+
+        <a href="dashboard.html">🏠 Dashboard</a>
+        <a href="hazards.html" class="active">⚠️ Manage Hazards</a>
+        <a href="reports.html">📄 User Reports</a>
+
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+
+        <h1>Hazard Details</h1>
+
+        <div class="detail-card">
+
+            <img
+                id="hazardPhoto"
+                src=""
+                width="350"
+                alt="Hazard Photo">
+
+            <p><strong>Hazard ID:</strong> <span id="hazardId"></span></p>
+
+            <p><strong>Hazard Type:</strong> <span id="hazardType"></span></p>
+
+            <p><strong>Description:</strong> <span id="description"></span></p>
+
+            <p><strong>Location:</strong> <span id="location"></span></p>
+
+            <p><strong>Latitude:</strong> <span id="latitude"></span></p>
+
+            <p><strong>Longitude:</strong> <span id="longitude"></span></p>
+
+            <p><strong>Status:</strong> <span id="status"></span></p>
+
+            <p><strong>Date:</strong> <span id="date"></span></p>
+
+            <br>
+
+            <a href="hazards.html" class="add-button">
+                Back
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script type="module" src="../js/viewHazard.js"></script>
+
+</body>
+</html>

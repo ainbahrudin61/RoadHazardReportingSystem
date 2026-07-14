@@ -90,10 +90,6 @@ onValue(hazardsRef, (snapshot)=>{
                     <i class="fa-solid fa-eye"></i>
                 </button>
 
-                <button class="edit-btn" onclick="editHazard('${hazardId}')">
-                    <i class="fa-solid fa-pen-to-square"></i>
-                </button>
-
                 <button
                     class="delete-btn"
                     data-id="${hazardId}">

@@ -1,4 +1,4 @@
-import { db } from "./firebase-config.js";
+import { database } from "./firebase-config.js";
 
 import { 
     ref, 
@@ -88,7 +88,7 @@ hazardForm.addEventListener("submit", function(e){
 
     // Create new ID
 
-    const hazardRef = push(ref(db, "hazards"));
+    const hazardRef = push(ref(database, "hazards"));
 
 
 

@@ -15,7 +15,7 @@ import {
 
 // GET USERS COUNT
 
-const usersRef = ref(db, "users");
+const usersRef = ref(database, "users");
 
 
 onValue(usersRef, (snapshot)=>{

@@ -673,7 +673,6 @@ tbody tr:hover{
     font-weight:bold;
 
     color:white;
-<<<<<<< HEAD
 
 }
 
@@ -1181,47 +1180,3 @@ tbody td[colspan]{
     }
 
 }
-=======
-    font-size:14px;
-    margin-top:30px;
-}
-
-
-/* ================ */
-/* Action Icons */
-/* ================ */
-
-.action-icons{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-}
-
-.action-icons button{
-    width: 36px;
-    height: 36px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    color: white;
-    font-size: 16px;
-    transition: 0.3s;
-}
-
-.view-btn{
-    background: #3498db;
-}
-
-.view-btn:hover{
-    background: #2980b9;
-}
-
-.delete-btn{
-    background: #e74c3c;
-}
-
-.delete-btn:hover{
-    background: #c0392b;
-}
->>>>>>> aff937f5c3d43415dc1e69367f33f0aa5dc462f0

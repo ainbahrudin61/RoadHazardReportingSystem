@@ -37,7 +37,19 @@
 
         <!-- Search & Filter -->
         <div class="filter-section">
-            <input type="text" id="searchInput" placeholder="Search by username, hazard type or location">
+            <input type="text" id="searchInput" placeholder="Search by user or location">
+            
+            <select id="hazardTypeFilter">
+                <option value="">All Hazard Types</option>
+                <option value="Pothole">Pothole</option>
+                <option value="Flood">Flood</option>
+                <option value="Road Crack">Road Crack</option>
+                <option value="Damaged Traffic Light">Damaged Traffic Light</option>
+                <option value="Fallen Tree">Fallen Tree</option>
+                <option value="Traffic Accident">Traffic Accident</option>
+                <option value="Damaged Road Sign">Damaged Road Sign</option>
+            </select>
+
             <select id="statusFilter">
                 <option value="">All Status</option>
                 <option value="New">New</option>
@@ -45,6 +57,7 @@
                 <option value="Repair">Repair</option>
                 <option value="Resolved">Resolved</option>
             </select>
+
             <input type="date" id="dateFilter">
             <button id="resetBtn">Reset</button>
         </div>
@@ -53,9 +66,9 @@
         <table>
             <thead>
                 <tr>
-                    <th>No</th>
+                    <th>ID</th>
                     <th>Photo</th>
-                    <th>Username</th>
+                    <th>User</th>
                     <th>Hazard Type</th>
                     <th>Description</th>
                     <th>Location</th>

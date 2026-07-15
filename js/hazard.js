@@ -4,6 +4,7 @@ import { signOut } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth
 
 const tableBody = document.getElementById("hazardTableBody");
 const searchInput = document.getElementById("searchInput");
+const hazardTypeFilter = document.getElementById("hazardTypeFilter");
 const statusFilter = document.getElementById("statusFilter");
 const dateFilter = document.getElementById("dateFilter");
 const resetBtn = document.getElementById("resetBtn");
@@ -20,7 +21,7 @@ onValue(hazardsRef, (snapshot) => {
     if (snapshot.exists()) {
         snapshot.forEach((child) => {
             allHazards.push({
-                id: child.key,
+                firebaseId: child.key,
                 ...child.val()
             });
         });
@@ -46,9 +47,12 @@ function renderTable(data) {
     }
 
     data.forEach((hazard, index) => {
+        // Use index + 1 as ID number
+        const idNumber = index + 1;
+
         tableBody.innerHTML += `
         <tr>
-            <td>${index + 1}</td>
+            <td>${idNumber}</td>
             <td>
                 ${hazard.image 
                     ? `<img src="${hazard.image}" class="table-image">` 
@@ -66,13 +70,13 @@ function renderTable(data) {
                 </span>
             </td>
             <td class="action-icons">
-                <button class="view-btn" data-id="${hazard.id}">
+                <button class="view-btn" data-id="${hazard.firebaseId}" data-index="${idNumber}">
                     <i class="fa-solid fa-eye"></i>
                 </button>
-                <button class="edit-btn" data-id="${hazard.id}">
+                <button class="edit-btn" data-id="${hazard.firebaseId}" data-index="${idNumber}">
                     <i class="fa-solid fa-pen"></i>
                 </button>
-                <button class="delete-btn" data-id="${hazard.id}">
+                <button class="delete-btn" data-id="${hazard.firebaseId}" data-index="${idNumber}">
                     <i class="fa-solid fa-trash"></i>
                 </button>
             </td>
@@ -99,25 +103,27 @@ function statusClass(status) {
 // ======================================
 function filterData() {
     const keyword = searchInput.value.toLowerCase();
+    const hazardType = hazardTypeFilter.value;
     const status = statusFilter.value;
     const date = dateFilter.value;
 
     const filtered = allHazards.filter((hazard) => {
         const matchKeyword = 
             (hazard.username || "").toLowerCase().includes(keyword) ||
-            (hazard.hazardType || "").toLowerCase().includes(keyword) ||
             (hazard.location || "").toLowerCase().includes(keyword);
         
+        const matchHazardType = hazardType === "" || hazard.hazardType === hazardType;
         const matchStatus = status === "" || hazard.status === status;
         const matchDate = date === "" || hazard.date === date;
 
-        return matchKeyword && matchStatus && matchDate;
+        return matchKeyword && matchHazardType && matchStatus && matchDate;
     });
 
     renderTable(filtered);
 }
 
 searchInput.addEventListener("input", filterData);
+hazardTypeFilter.addEventListener("change", filterData);
 statusFilter.addEventListener("change", filterData);
 dateFilter.addEventListener("change", filterData);
 
@@ -126,6 +132,7 @@ dateFilter.addEventListener("change", filterData);
 // ======================================
 resetBtn.addEventListener("click", () => {
     searchInput.value = "";
+    hazardTypeFilter.value = "";
     statusFilter.value = "";
     dateFilter.value = "";
     renderTable(allHazards);
@@ -138,14 +145,15 @@ tableBody.addEventListener("click", async (e) => {
     const button = e.target.closest("button");
     if (!button) return;
 
-    const id = button.dataset.id;
+    const firebaseId = button.dataset.id;
+    const indexNumber = button.dataset.index;
 
     if (button.classList.contains("view-btn")) {
-        window.location.href = `viewHazard.html?id=${id}`;
+        window.location.href = `viewHazard.html?id=${firebaseId}&index=${indexNumber}`;
     }
 
     if (button.classList.contains("edit-btn")) {
-        window.location.href = `editHazard.html?id=${id}`;
+        window.location.href = `editHazard.html?id=${firebaseId}&index=${indexNumber}`;
     }
 
     if (button.classList.contains("delete-btn")) {
@@ -153,7 +161,7 @@ tableBody.addEventListener("click", async (e) => {
         if (!confirmDelete) return;
 
         try {
-            await remove(ref(database, `${HAZARD_PATH}/${id}`));
+            await remove(ref(database, `${HAZARD_PATH}/${firebaseId}`));
             alert("Hazard deleted successfully.");
         } catch (error) {
             alert(error.message);

@@ -2,14 +2,11 @@
 <html lang="en">
 
 <head>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Add Hazard</title>
-
-<link rel="stylesheet" href="../css/style.css">
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Hazard</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
 
 <body>
@@ -17,37 +14,17 @@
 <div class="dashboard-container">
 
     <aside class="sidebar">
-
         <h2>SmartRoad</h2>
-
         <a href="dashboard.html">🏠 Dashboard</a>
-
-        <a href="hazards.html" class="active">
-            ⚠️ Manage Hazards
-        </a>
-
-        <a href="reports.html">
-            📄 User Reports
-        </a>
-
-        <button id="logoutBtn">
-            Logout
-        </button>
-
+        <a href="hazards.html" class="active">⚠️ Manage Hazard Reports</a>
+        <button id="logoutBtn">Logout</button>
     </aside>
 
     <main class="main-content">
 
         <div class="page-header">
-
             <h1>Add New Hazard</h1>
-
-            <a href="hazards.html" class="add-button">
-
-                ← Back
-
-            </a>
-
+            <a href="hazards.html" class="add-button">← Back</a>
         </div>
 
         <div class="form-container">
@@ -55,131 +32,75 @@
             <form id="hazardForm">
 
                 <div class="form-group">
-
                     <label>Hazard Type</label>
-
                     <select id="hazardType" required>
-
                         <option value="">Select Hazard</option>
-
                         <option>Pothole</option>
-
                         <option>Flood</option>
-
                         <option>Road Crack</option>
-
                         <option>Damaged Traffic Light</option>
-
                         <option>Fallen Tree</option>
-
                         <option>Traffic Accident</option>
-
                         <option>Damaged Road Sign</option>
-
                     </select>
-
                 </div>
 
                 <div class="form-group">
-
                     <label>Description</label>
-
-                    <textarea
-                        id="description"
-                        rows="5"
-                        required>
-                    </textarea>
-
+                    <textarea id="description" rows="5" required></textarea>
                 </div>
 
                 <div class="form-group">
-
                     <label>Location</label>
-
-                    <input
-                        type="text"
-                        id="location"
-                        required>
-
+                    <input type="text" id="location" required>
                 </div>
 
                 <div class="form-group">
-
                     <label>Latitude</label>
-
-                    <input
-                        type="number"
-                        step="any"
-                        id="latitude"
-                        required>
-
+                    <input type="number" step="any" id="latitude" required>
                 </div>
 
                 <div class="form-group">
-
                     <label>Longitude</label>
-
-                    <input
-                        type="number"
-                        step="any"
-                        id="longitude"
-                        required>
-
+                    <input type="number" step="any" id="longitude" required>
                 </div>
 
                 <div class="form-group">
+                    <label>Date</label>
+                    <input type="date" id="reportDate" required>
+                </div>
 
+                <div class="form-group">
+                    <label>User Agent</label>
+                    <input type="text" id="userAgent" placeholder="e.g., Android 15, Chrome 120" required>
+                </div>
+
+                <div class="form-group">
                     <label>Status</label>
-
                     <select id="status">
-
-                        <option selected>
-
-                            New
-
-                        </option>
-
-                        <option>
-
-                            Under Investigation
-
-                        </option>
-
-                        <option>
-
-                            Resolved
-
-                        </option>
-
+                        <option selected>New</option>
+                        <option>Under Investigation</option>
+                        <option>Repair</option>
+                        <option>Resolved</option>
                     </select>
-
                 </div>
 
                 <div class="form-group">
-
                     <label>Upload Image</label>
-
-                    <input
-                        type="file"
-                        id="image"
-                        accept="image/*">
-
+                    <input type="file" id="image" accept="image/*">
                 </div>
 
                 <div class="form-group">
-
-                    <img
-                        id="previewImage"
-                        style="display:none;max-width:300px;border-radius:10px;">
-
+                    <img id="previewImage" style="display:none;max-width:300px;border-radius:10px;">
                 </div>
 
-                <button
-                    type="submit">
-
-                    Save Hazard
-
-                </button>
+                <div class="form-buttons">
+                    <button type="submit" class="save-btn">
+                        <i class="fa-solid fa-floppy-disk"></i>
+                        Save
+                    </button>
+                    <a href="hazards.html" class="cancel-btn">Cancel</a>
+                </div>
 
             </form>
 

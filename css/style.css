@@ -1186,3 +1186,14 @@ tbody td[colspan]{
     }
 
 }
+
+.table-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.table-header h2 {
+    margin: 0;
+}

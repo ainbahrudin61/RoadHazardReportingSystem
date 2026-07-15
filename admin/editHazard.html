@@ -31,7 +31,12 @@
             <form id="editHazardForm">
 
                 <div class="form-group">
-                    <label>Username (Reported By)</label>
+                    <label>ID</label>
+                    <input type="text" id="hazardId" readonly>
+                </div>
+
+                <div class="form-group">
+                    <label>User</label>
                     <input type="text" id="username" readonly>
                 </div>
 
@@ -70,6 +75,16 @@
                 </div>
 
                 <div class="form-group">
+                    <label>Date</label>
+                    <input type="date" id="reportDate" required>
+                </div>
+
+                <div class="form-group">
+                    <label>User Agent</label>
+                    <input type="text" id="userAgent" placeholder="e.g., Android 15, Chrome 120" required>
+                </div>
+
+                <div class="form-group">
                     <label>Status</label>
                     <select id="status">
                         <option>New</option>
@@ -93,7 +108,7 @@
                 <div class="form-buttons">
                     <button type="submit" class="save-btn">
                         <i class="fa-solid fa-floppy-disk"></i>
-                        Update Hazard
+                        Update
                     </button>
                     <a href="hazards.html" class="cancel-btn">Cancel</a>
                 </div>

@@ -9,9 +9,10 @@ document.getElementById("logoutBtn").addEventListener("click", async () => {
     window.location.href = "login.html";
 });
 
-// GET HAZARD ID
+// GET HAZARD ID & INDEX
 const params = new URLSearchParams(window.location.search);
-const hazardId = params.get("id");
+const hazardId = params.get("id"); // Firebase ID
+const indexNumber = params.get("index"); // Display ID number
 
 if (!hazardId) {
     alert("Invalid Hazard ID.");
@@ -37,12 +38,16 @@ get(hazardRef)
 
         const data = snapshot.val();
 
+        // Use index number as ID
+        document.getElementById("hazardId").value = indexNumber || "1";
         document.getElementById("username").value = data.username || "-";
         document.getElementById("hazardType").value = data.hazardType || "";
         document.getElementById("description").value = data.description || "";
         document.getElementById("location").value = data.location || "";
         document.getElementById("latitude").value = data.latitude || "";
         document.getElementById("longitude").value = data.longitude || "";
+        document.getElementById("reportDate").value = data.date || "";
+        document.getElementById("userAgent").value = data.userAgent || "";
         document.getElementById("status").value = data.status || "New";
 
         imageBase64 = data.image || "";
@@ -72,6 +77,12 @@ photoInput.addEventListener("change", function () {
 form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
+    // ======================
+    // CONFIRM POPUP
+    // ======================
+    const confirmUpdate = confirm("Update this hazard report?");
+    if (!confirmUpdate) return;
+
     const updatedData = {
         username: document.getElementById("username").value,
         hazardType: document.getElementById("hazardType").value,
@@ -79,6 +90,8 @@ form.addEventListener("submit", async (e) => {
         location: document.getElementById("location").value.trim(),
         latitude: document.getElementById("latitude").value,
         longitude: document.getElementById("longitude").value,
+        date: document.getElementById("reportDate").value,
+        userAgent: document.getElementById("userAgent").value.trim(),
         status: document.getElementById("status").value,
         image: imageBase64,
         updatedAt: new Date().getTime()

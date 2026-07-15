@@ -2,99 +2,76 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>SmartRoad Admin Dashboard</title>
-
     <link rel="stylesheet" href="../css/style.css">
-
 </head>
 
 <body>
 
 <div class="dashboard-container">
 
-   <!-- Sidebar -->
-<aside class="sidebar">
-    <h2>SmartRoad</h2>
-    <a href="dashboard.html" class="active">🏠 Dashboard</a>
-    <a href="hazards.html">⚠️ Manage Hazard Reports</a>  
-    <button id="logoutBtn">Logout</button>
-</aside>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <h2>SmartRoad</h2>
+        <a href="dashboard.html" class="active">🏠 Dashboard</a>
+        <a href="hazards.html">⚠️ Manage Hazard Reports</a>
+        <button id="logoutBtn">Logout</button>
+    </aside>
+
     <!-- Main Content -->
     <main class="main-content">
 
         <div class="dashboard-header">
-
             <h1>SMARTROAD ADMIN PANEL</h1>
-
             <p>Welcome back, Administrator.</p>
-
         </div>
 
         <!-- Summary Cards -->
-
         <div class="summary-container">
-
             <div class="card">
                 <h3>Total Users</h3>
                 <h1 id="totalUsers">0</h1>
             </div>
-
             <div class="card">
                 <h3>Total Reports</h3>
                 <h1 id="totalReports">0</h1>
             </div>
-
             <div class="card">
                 <h3>Open Report</h3>
                 <h1 id="openReports">0</h1>
             </div>
-
             <div class="card">
                 <h3>Resolved</h3>
                 <h1 id="resolvedReports">0</h1>
             </div>
-
         </div>
 
         <!-- Recent Reports -->
-
         <div class="recent-reports">
-
             <div class="table-header">
-
                 <h2>Recent Hazard Reports</h2>
-
+                <a href="hazards.html" class="add-button" style="padding:8px 16px;font-size:14px;">
+                    View All Reports →
+                </a>
             </div>
 
             <table>
-
                 <thead>
-
                     <tr>
-
-                        <th>No</th>
+                        <th>ID</th>
                         <th>User</th>
                         <th>Hazard Type</th>
                         <th>Location</th>
                         <th>Date</th>
                         <th>Status</th>
-
                     </tr>
-
                 </thead>
-
                 <tbody id="recentTable">
-
                     <!-- Firebase -->
-
                 </tbody>
-
             </table>
-
         </div>
 
     </main>

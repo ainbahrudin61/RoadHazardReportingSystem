@@ -228,3 +228,28 @@ body { font-size: 16px; }
     .data-table td, .form-group > label, .input-wrap input, .input-wrap select, .input-wrap textarea, .detail-table td { font-size: 12px; }
     .table-header h2, .form-intro h2, .detail-heading h2 { font-size: 19px; }
 }
+
+/* Stronger microcopy scale for easier reading */
+.brand small { font-size: 9px; }
+.sidebar-label { font-size: 11px; }
+.admin-chip small { font-size: 11px; }
+.breadcrumb, .live-indicator { font-size: 13px; }
+.eyebrow, .section-kicker { font-size: 11px; }
+.data-table th { font-size: 11px; }
+.status { min-height: 29px; padding: 5px 11px; font-size: 11px; }
+.records-note { font-size: 11px; }
+.filter-heading small { font-size: 11px; }
+.select-field span { font-size: 10px; }
+.form-group > label { font-size: 14px; }
+.form-group > label span { font-size: 11px; }
+.file-dropzone small { font-size: 12px; }
+.upload-link { font-size: 12px; }
+.detail-table th { font-size: 11px; }
+.detail-table th i { font-size: 12px; }
+.login-security, footer { font-size: 11px; }
+
+@media (max-width: 650px) {
+    .data-table td, .form-group > label, .input-wrap input, .input-wrap select, .input-wrap textarea, .detail-table td { font-size: 13px; }
+    .data-table th, .detail-table th { font-size: 10px; }
+    .status { font-size: 10px; }
+}

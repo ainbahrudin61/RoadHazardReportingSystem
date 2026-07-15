@@ -204,3 +204,27 @@ a { color: inherit; }
 @media (max-width: 1180px) { .main-content { padding-inline: 30px; }.summary-container { grid-template-columns: repeat(2, minmax(0, 1fr)); }.filter-section { align-items: flex-start; flex-direction: column; gap: 13px; }.filter-heading { width: 100%; padding: 0 0 13px; border-right: 0; border-bottom: 1px solid var(--line); }.filter-controls { width: 100%; }.hero-panel { grid-template-columns: 1fr .7fr; }.login-layout { grid-template-columns: minmax(370px, 1fr) minmax(350px, .8fr); }.login-showcase { padding-inline: 55px; } }
 @media (max-width: 900px) { .sidebar { width: 78px; padding: 21px 12px 14px; }.brand { justify-content: center; }.brand > span:last-child, .sidebar-label, .sidebar-nav a span, .admin-chip > span:not(.admin-avatar), .admin-chip > i, .logout-button { display: none; }.sidebar-nav a { justify-content: center; padding: 0; }.sidebar-nav a i { width: auto; }.sidebar-bottom { padding-top: 20px; }.admin-chip { display: grid; place-items: center; margin: 0; padding: 0; border: 0; background: none; }.main-content { width: calc(100% - 78px); margin-left: 78px; }.hero-panel { grid-template-columns: 1fr; }.hero-orbit { display: none; }.login-layout { grid-template-columns: 1fr; }.login-showcase { min-height: 455px; }.road-visual { right: 7%; bottom: 5%; transform: scale(.82) rotate(-8deg); transform-origin: bottom right; }.login-container { min-height: 590px; } }
 @media (max-width: 650px) { .main-content { padding: 0 16px 30px; }.topbar { min-height: 68px; }.breadcrumb span { display: none; }.live-indicator { font-size: 10px; }.page-hero { align-items: flex-start; flex-direction: column; gap: 16px; }.page-hero .primary-button, .page-hero .secondary-button { width: 100%; }.hero-panel { min-height: 0; padding: 31px 25px; border-radius: 19px; }.hero-panel h1 { font-size: 31px; letter-spacing: -1.5px; }.summary-container { grid-template-columns: 1fr; gap: 11px; }.stat-card { min-height: 117px; }.table-header { align-items: flex-start; flex-direction: column; padding: 20px; }.text-button { width: 100%; justify-content: space-between; padding: 10px 11px; border-radius: 9px; background: #f4f6fd; }.filter-section { padding: 14px; }.filter-controls { display: grid; grid-template-columns: 1fr 1fr; }.search-field { grid-column: 1 / -1; }.select-field, .date-field { width: 100%; min-width: 0; }.filter-section button { width: 100%; }.filter-section button span { display: none; }.form-container { padding: 21px 17px; border-radius: 18px; }.form-grid { grid-template-columns: 1fr; gap: 16px; padding-top: 20px; }.form-group.full-width { grid-column: auto; }.form-intro { align-items: flex-start; }.form-intro h2 { font-size: 17px; }.file-dropzone { align-items: flex-start; flex-wrap: wrap; }.upload-link { margin-left: 55px; }.current-photo { align-items: flex-start; flex-direction: column; }.detail-card { grid-template-columns: 1fr; border-radius: 18px; }.image-section { min-height: 260px; }.image-section > img { min-height: 260px; }.detail-section { padding: 21px 17px; }.detail-table th { width: 122px; font-size: 8px; }.detail-table td { font-size: 11px; }.login-showcase { min-height: 375px; padding: 29px 25px; }.showcase-copy { margin: auto 0 0; }.showcase-copy h1 { font-size: 42px; letter-spacing: -2px; }.showcase-copy h1 + p { font-size: 13px; }.road-visual, .showcase-footer { display: none; }.login-container { min-height: 530px; padding: 35px 25px; }.login-welcome { margin-bottom: 25px; }.login-welcome h2 { font-size: 23px; } }
+
+/* Slightly larger, easier-to-read type scale */
+body { font-size: 16px; }
+.sidebar-nav a { font-size: 15px; }
+.hero-panel h1 + p, .page-hero h1 + p { font-size: 16px; }
+.primary-button, .secondary-button, .text-button { font-size: 14px; }
+.stat-card p { font-size: 12px; }
+.stat-card h2 { font-size: 33px; }
+.stat-card span { font-size: 11px; }
+.table-header h2, .form-intro h2, .detail-heading h2 { font-size: 21px; }
+.table-header h2 + p { font-size: 13px; }
+.data-table td { font-size: 13px; }
+.filter-heading strong { font-size: 13px; }
+.filter-heading small, .filter-section input, .filter-section select, .filter-section button { font-size: 12px; }
+.form-group > label, .input-wrap input, .input-wrap select, .input-wrap textarea { font-size: 13px; }
+.file-dropzone strong, .replace-photo, .save-btn, .cancel-btn { font-size: 13px; }
+.detail-table td { font-size: 13px; }
+.login-welcome h2 { font-size: 28px; }
+.login-welcome h2 + p, .login-box .input-wrap input, .login-btn { font-size: 14px; }
+
+@media (max-width: 650px) {
+    .data-table td, .form-group > label, .input-wrap input, .input-wrap select, .input-wrap textarea, .detail-table td { font-size: 12px; }
+    .table-header h2, .form-intro h2, .detail-heading h2 { font-size: 19px; }
+}

@@ -1,127 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Hazard</title>
+    <meta name="theme-color" content="#101a3d">
+    <title>Edit Hazard | SmartRoad</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
-
 <body>
+    <div class="app-shell">
+        <aside class="sidebar">
+            <a class="brand" href="dashboard.html" aria-label="SmartRoad dashboard"><span class="brand-mark"><i class="fa-solid fa-road"></i></span><span><strong>smartroad</strong><small>ADMIN CONSOLE</small></span></a>
+            <p class="sidebar-label">Workspace</p>
+            <nav class="sidebar-nav" aria-label="Primary navigation"><a href="dashboard.html"><i class="fa-solid fa-grid-2"></i><span>Overview</span></a><a href="hazards.html" class="active"><i class="fa-solid fa-triangle-exclamation"></i><span>Hazard reports</span></a></nav>
+            <div class="sidebar-bottom"><div class="admin-chip"><span class="admin-avatar">A</span><span><strong>Administrator</strong><small>System control</small></span><i class="fa-solid fa-circle-check"></i></div><button id="logoutBtn" class="logout-button"><i class="fa-solid fa-arrow-right-from-bracket"></i> Sign out</button></div>
+        </aside>
 
-<div class="dashboard-container">
+        <main class="main-content">
+            <header class="topbar"><div class="breadcrumb"><i class="fa-solid fa-house"></i><span>Hazard reports</span><i class="fa-solid fa-chevron-right"></i><strong>Edit report</strong></div><div class="live-indicator"><span></span> Changes save securely</div></header>
+            <section class="page-hero form-hero"><div><p class="eyebrow"><i class="fa-solid fa-pen-to-square"></i> REPORT UPDATE</p><h1>Refine the response</h1><p>Keep the incident record current so your team can take the right next step.</p></div><a href="hazards.html" class="secondary-button"><i class="fa-solid fa-arrow-left"></i> Back to reports</a></section>
 
-    <aside class="sidebar">
-        <h2>SmartRoad</h2>
-        <a href="dashboard.html">🏠 Dashboard</a>
-        <a href="hazards.html" class="active">⚠️ Manage Hazard Reports</a>
-        <button id="logoutBtn">Logout</button>
-    </aside>
-
-    <main class="main-content">
-
-        <div class="page-header">
-            <h1>Edit Hazard Report</h1>
-            <a href="hazards.html" class="add-button">← Back</a>
-        </div>
-
-        <div class="form-container">
-            <form id="editHazardForm">
-
-                <div class="form-group">
-                    <label>ID</label>
-                    <input type="text" id="hazardId" readonly>
+            <form id="editHazardForm" class="form-container">
+                <div class="form-intro"><span class="intro-icon edit-intro-icon"><i class="fa-solid fa-pen-ruler"></i></span><div><p class="section-kicker">REPORT DETAILS</p><h2>Update with confidence</h2><p>Review the incident record and save when the information is ready.</p></div></div>
+                <div class="form-grid">
+                    <div class="form-group"><label for="hazardId">Report ID</label><div class="input-wrap"><i class="fa-solid fa-hashtag"></i><input type="text" id="hazardId" readonly></div></div>
+                    <div class="form-group"><label for="username">Reported by</label><div class="input-wrap"><i class="fa-solid fa-user"></i><input type="text" id="username" readonly></div></div>
+                    <div class="form-group"><label for="hazardType">Hazard type <b>*</b></label><div class="input-wrap"><i class="fa-solid fa-triangle-exclamation"></i><select id="hazardType" required><option value="">Choose a hazard</option><option>Pothole</option><option>Flood</option><option>Road Crack</option><option>Damaged Traffic Light</option><option>Fallen Tree</option><option>Traffic Accident</option><option>Damaged Road Sign</option></select></div></div>
+                    <div class="form-group"><label for="status">Current status</label><div class="input-wrap"><i class="fa-solid fa-layer-group"></i><select id="status"><option>New</option><option>Under Investigation</option><option>Repair</option><option>Resolved</option></select></div></div>
+                    <div class="form-group full-width"><label for="description">What happened? <b>*</b></label><div class="input-wrap textarea-wrap"><i class="fa-solid fa-align-left"></i><textarea id="description" rows="5" required></textarea></div></div>
+                    <div class="form-group full-width"><label for="location">Location <b>*</b></label><div class="input-wrap"><i class="fa-solid fa-location-dot"></i><input type="text" id="location" required></div></div>
+                    <div class="form-group"><label for="latitude">Latitude <b>*</b></label><div class="input-wrap"><i class="fa-solid fa-compass"></i><input type="number" step="any" id="latitude" required></div></div>
+                    <div class="form-group"><label for="longitude">Longitude <b>*</b></label><div class="input-wrap"><i class="fa-solid fa-compass"></i><input type="number" step="any" id="longitude" required></div></div>
+                    <div class="form-group"><label for="reportDate">Report date <b>*</b></label><div class="input-wrap"><i class="fa-regular fa-calendar"></i><input type="date" id="reportDate" required></div></div>
+                    <div class="form-group"><label for="userAgent">Submitted from <b>*</b></label><div class="input-wrap"><i class="fa-solid fa-mobile-screen-button"></i><input type="text" id="userAgent" required></div></div>
+                    <div class="form-group full-width upload-group"><label for="photo">Photo evidence</label><div class="current-photo"><img id="previewImage" class="image-preview" alt="Current hazard evidence"><label class="replace-photo" for="photo"><i class="fa-solid fa-arrow-up-from-bracket"></i> Replace photo<input type="file" id="photo" accept="image/*"></label></div></div>
                 </div>
-
-                <div class="form-group">
-                    <label>User</label>
-                    <input type="text" id="username" readonly>
-                </div>
-
-                <div class="form-group">
-                    <label>Hazard Type</label>
-                    <select id="hazardType" required>
-                        <option value="">Select Hazard</option>
-                        <option>Pothole</option>
-                        <option>Flood</option>
-                        <option>Road Crack</option>
-                        <option>Damaged Traffic Light</option>
-                        <option>Fallen Tree</option>
-                        <option>Traffic Accident</option>
-                        <option>Damaged Road Sign</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label>Description</label>
-                    <textarea id="description" rows="5" required></textarea>
-                </div>
-
-                <div class="form-group">
-                    <label>Location</label>
-                    <input type="text" id="location" required>
-                </div>
-
-                <div class="form-group">
-                    <label>Latitude</label>
-                    <input type="number" step="any" id="latitude" required>
-                </div>
-
-                <div class="form-group">
-                    <label>Longitude</label>
-                    <input type="number" step="any" id="longitude" required>
-                </div>
-
-                <div class="form-group">
-                    <label>Date</label>
-                    <input type="date" id="reportDate" required>
-                </div>
-
-                <div class="form-group">
-                    <label>User Agent</label>
-                    <input type="text" id="userAgent" placeholder="e.g., Android 15, Chrome 120" required>
-                </div>
-
-                <div class="form-group">
-                    <label>Status</label>
-                    <select id="status">
-                        <option>New</option>
-                        <option>Under Investigation</option>
-                        <option>Repair</option>
-                        <option>Resolved</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label>Current Image</label>
-                    <br>
-                    <img id="previewImage" style="max-width:300px;border-radius:10px;">
-                </div>
-
-                <div class="form-group">
-                    <label>Replace Image</label>
-                    <input type="file" id="photo" accept="image/*">
-                </div>
-
-                <div class="form-buttons">
-                    <button type="submit" class="save-btn">
-                        <i class="fa-solid fa-floppy-disk"></i>
-                        Update
-                    </button>
-                    <a href="hazards.html" class="cancel-btn">Cancel</a>
-                </div>
-
+                <div class="form-buttons"><button type="submit" class="save-btn"><i class="fa-solid fa-floppy-disk"></i> Save changes</button><a href="hazards.html" class="cancel-btn">Cancel</a></div>
             </form>
-        </div>
-
-    </main>
-
-</div>
-
-<script type="module" src="../js/editHazard.js"></script>
-
+        </main>
+    </div>
+    <script type="module" src="../js/editHazard.js"></script>
 </body>
-
 </html>

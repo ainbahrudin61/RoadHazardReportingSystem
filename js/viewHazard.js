@@ -63,7 +63,8 @@ get(hazardRef)
         if (data.image && data.image !== "") {
             photo.src = data.image;
         } else {
-            photo.src = "../images/no-image.png";
+            photo.src = "../images/hazard_bg.jpg";
+            photo.classList.add("fallback-photo");
         }
 
         // ======================

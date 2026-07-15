@@ -53,6 +53,9 @@ get(hazardRef)
         imageBase64 = data.image || "";
         if (imageBase64 !== "") {
             previewImage.src = imageBase64;
+            previewImage.style.display = "block";
+        } else {
+            previewImage.style.display = "none";
         }
     })
     .catch((error) => {

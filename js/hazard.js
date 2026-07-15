@@ -70,13 +70,13 @@ function renderTable(data) {
                 </span>
             </td>
             <td class="action-icons">
-                <button class="view-btn" data-id="${hazard.firebaseId}" data-index="${idNumber}">
+                <button class="view-btn" title="View report" aria-label="View report" data-id="${hazard.firebaseId}" data-index="${idNumber}">
                     <i class="fa-solid fa-eye"></i>
                 </button>
-                <button class="edit-btn" data-id="${hazard.firebaseId}" data-index="${idNumber}">
+                <button class="edit-btn" title="Edit report" aria-label="Edit report" data-id="${hazard.firebaseId}" data-index="${idNumber}">
                     <i class="fa-solid fa-pen"></i>
                 </button>
-                <button class="delete-btn" data-id="${hazard.firebaseId}" data-index="${idNumber}">
+                <button class="delete-btn" title="Delete report" aria-label="Delete report" data-id="${hazard.firebaseId}" data-index="${idNumber}">
                     <i class="fa-solid fa-trash"></i>
                 </button>
             </td>

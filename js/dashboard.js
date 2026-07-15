@@ -38,8 +38,7 @@ const hazardRef = ref(database, HAZARD_PATH);
 onValue(hazardRef, (snapshot) => {
 
     let totalReports = 0;
-    let newReports = 0;
-    let investigationReports = 0;
+    let openReports = 0;
     let resolvedReports = 0;
 
     const reportList = [];
@@ -55,16 +54,14 @@ onValue(hazardRef, (snapshot) => {
             switch (data.status) {
 
                 case "New":
-                    newReports++;
-                    break;
-
                 case "Under Investigation":
-                    investigationReports++;
-                    break;
+                case "Repair":
+                    openReports++;
+                break;
 
                 case "Resolved":
                     resolvedReports++;
-                    break;
+                break;
 
             }
 
@@ -92,9 +89,7 @@ onValue(hazardRef, (snapshot) => {
 
     document.getElementById("totalReports").textContent = totalReports;
 
-    document.getElementById("newReports").textContent = newReports;
-
-    document.getElementById("investigationReports").textContent = investigationReports;
+    document.getElementById("openReports").textContent = openReports;
 
     document.getElementById("resolvedReports").textContent = resolvedReports;
 
@@ -163,6 +158,9 @@ function formatStatus(status) {
 
         case "Under Investigation":
             return "investigation";
+
+        case "Repair":
+            return "repair";
 
         case "Resolved":
             return "resolved";

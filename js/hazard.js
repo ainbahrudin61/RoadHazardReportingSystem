@@ -88,6 +88,7 @@ function statusClass(status) {
     switch(status) {
         case "New": return "new";
         case "Under Investigation": return "investigation";
+        case "Repair": return "repair";
         case "Resolved": return "resolved";
         default: return "";
     }

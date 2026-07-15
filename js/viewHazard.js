@@ -144,6 +144,12 @@ get(hazardRef)
 
             break;
 
+        case "Repair":
+
+            badge.classList.add("status", "repair");
+
+            break;
+
         case "Resolved":
 
             badge.classList.add("status", "resolved");

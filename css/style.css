@@ -253,3 +253,66 @@ body { font-size: 16px; }
     .data-table th, .detail-table th { font-size: 10px; }
     .status { font-size: 10px; }
 }
+
+/* Comfortable presentation scale - enlarged across the interface */
+body { font-size: 17px; }
+.sidebar-nav a { font-size: 16px; }
+.admin-chip strong { font-size: 13px; }
+.admin-chip small, .sidebar-label { font-size: 12px; }
+.breadcrumb, .live-indicator { font-size: 14px; }
+.page-hero h1 { font-size: clamp(36px, 3.3vw, 46px); }
+.page-hero h1 + p, .hero-panel h1 + p { font-size: 17px; }
+.page-hero .eyebrow, .form-hero .eyebrow { font-size: 12px; }
+.primary-button, .secondary-button, .text-button { font-size: 15px; }
+.summary-container .stat-card p { font-size: 13px; }
+.summary-container .stat-card h2 { font-size: 36px; }
+.summary-container .stat-card span { font-size: 12px; }
+.table-header h2, .form-intro h2, .detail-heading h2 { font-size: 23px; }
+.table-header h2 + p { font-size: 14px; }
+.data-table th { font-size: 12px; }
+.data-table td { font-size: 14px; }
+.status { min-height: 31px; padding: 6px 12px; font-size: 12px; }
+.form-container { max-width: 1040px; padding: 36px; }
+.form-intro { padding-bottom: 28px; }
+.form-intro p:last-child { font-size: 14px; }
+.form-grid { gap: 22px 24px; padding-top: 29px; }
+.form-group > label { margin-bottom: 9px; font-size: 15px; }
+.form-group > label span { font-size: 12px; }
+.input-wrap { min-height: 53px; border-radius: 13px; }
+.input-wrap > i { width: 50px; font-size: 15px; }
+.input-wrap input, .input-wrap select { height: 51px; font-size: 15px; }
+.input-wrap textarea { min-height: 132px; padding-top: 15px; font-size: 15px; }
+.textarea-wrap { min-height: 134px; }
+.textarea-wrap > i { padding-top: 18px; }
+.file-dropzone { min-height: 102px; padding: 18px 20px; }
+.upload-icon { width: 48px; height: 48px; font-size: 19px; }
+.file-dropzone strong { font-size: 15px; }
+.file-dropzone small { font-size: 13px; }
+.upload-link, .replace-photo { font-size: 13px; }
+.form-buttons { margin-top: 31px; padding-top: 27px; }
+.save-btn, .cancel-btn { min-height: 52px; padding-inline: 21px; font-size: 15px; }
+.detail-card { grid-template-columns: minmax(330px, .84fr) minmax(0, 1.16fr); max-width: 1230px; }
+.detail-section { padding: 36px; }
+.detail-heading { margin-bottom: 22px; }
+.detail-heading h2 { font-size: 24px; }
+.detail-table th { width: 190px; padding-block: 16px; font-size: 12px; }
+.detail-table th i { font-size: 13px; }
+.detail-table td { padding-block: 16px; font-size: 15px; }
+.detail-table .description-row td { line-height: 1.7; }
+.image-caption { font-size: 13px; }
+.filter-heading strong { font-size: 14px; }
+.filter-heading small, .filter-section input, .filter-section select, .filter-section button { font-size: 13px; }
+.records-note { font-size: 12px; }
+.login-welcome h2 { font-size: 30px; }
+.login-welcome h2 + p, .login-box .input-wrap input, .login-btn { font-size: 15px; }
+
+@media (max-width: 650px) {
+    .page-hero h1 { font-size: 35px; }
+    .page-hero h1 + p, .hero-panel h1 + p { font-size: 15px; }
+    .form-container { padding: 26px 20px; }
+    .form-group > label, .input-wrap input, .input-wrap select, .input-wrap textarea, .detail-table td { font-size: 14px; }
+    .detail-table th { font-size: 11px; }
+    .data-table td { font-size: 14px; }
+    .data-table th { font-size: 11px; }
+    .save-btn, .cancel-btn { font-size: 14px; }
+}

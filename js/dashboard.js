@@ -9,9 +9,10 @@ const usersRef = ref(database, USER_PATH);
 
 onValue(usersRef, (snapshot) => {
     let totalUsers = 0;
-    if (snapshot.exists()) {
-        totalUsers = snapshot.size;
-    }
+     snapshot.forEach(() => {
+        totalUsers++;
+    });
+
     document.getElementById("totalUsers").textContent = totalUsers;
 });
 
@@ -46,7 +47,6 @@ onValue(hazardRef, (snapshot) => {
                 firebaseId: child.key,
                 user: data.username || data.user || "-",
                 hazardType: data.hazardType || "-",
-                location: data.location || "-",
                 status: data.status || "-",
                 createdAt: data.createdAt || "",
                 date: data.date || ""
@@ -83,7 +83,6 @@ function displayRecentReports(reportList) {
                 <td>${idNumber}</td>
                 <td>${report.user}</td>
                 <td>${report.hazardType}</td>
-                <td>${report.location}</td>
                 <td>${displayDate}</td>
                 <td>
                     <span class="status ${formatStatus(report.status)}">

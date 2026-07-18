@@ -1,7 +1,7 @@
 import { auth, database, HAZARD_PATH, HAZARD_PATHS } from "./firebase-config.js";
 import { ref, onValue, remove } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-database.js";
 import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
-import { formatDateForDisplay, normalizeDateForComparison } from "./date-utils.js";
+import { formatDateForDisplay, normalizeDateForComparison, formatTimeForDisplay } from "./date-utils.js";
 
 const tableBody = document.getElementById("hazardTableBody");
 const searchInput = document.getElementById("searchInput");
@@ -65,7 +65,7 @@ function renderTable(data) {
     if (data.length === 0) {
         tableBody.innerHTML = `
             <tr>
-                <td colspan="8">No hazard reports found.</td>
+                <td colspan="9">No hazard reports found.</td>
             </tr>
         `;
         return;
@@ -85,6 +85,7 @@ function renderTable(data) {
                 <img src="${hazard.image || '../images/hazard_bg.jpg'}" alt="evidence" class="table-image">
             </td>
             <td>${formatDateForDisplay(hazard.date)}</td>
+            <td>${formatTimeForDisplay(hazard.time)}</td>
             <td>
                 <span class="status ${statusClass(hazard.status)}">
                     ${hazard.status || "New"}

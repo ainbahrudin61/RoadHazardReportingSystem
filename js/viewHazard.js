@@ -61,8 +61,12 @@ get(hazardRef)
         // IMAGE
         // ======================
         const photo = document.getElementById("hazardPhoto");
+
+        console.log(data);
+        console.log(data.image);
+
         if (data.image && data.image !== "") {
-            photo.src = data.image;
+            photo.src = "data:image/jpeg;base64," + data.image;
         } else {
             photo.src = "../images/hazard_bg.jpg";
             photo.classList.add("fallback-photo");

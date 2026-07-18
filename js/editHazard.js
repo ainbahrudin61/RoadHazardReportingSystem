@@ -59,7 +59,7 @@ async function loadHazardData() {
 
             imageBase64 = data.image || "";
             if (imageBase64 !== "") {
-                previewImage.src = imageBase64;
+                previewImage.src = imageBase64.startsWith('data:') ? imageBase64 : `data:image/jpeg;base64,${imageBase64}`;
                 previewImage.style.display = "block";
             } else {
                 previewImage.style.display = "none";

@@ -85,7 +85,7 @@ function renderTable(data) {
                 <img
         src="${
             hazard.image && hazard.image.trim() !== ""
-                ? `data:image/jpeg;base64,${hazard.image}`
+                ? (hazard.image.startsWith('data:') ? hazard.image : `data:image/jpeg;base64,${hazard.image}`)
                 : "../images/hazard_bg.jpg"
         }"
         alt="evidence"

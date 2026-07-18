@@ -1,6 +1,7 @@
 import { auth, database, HAZARD_PATH, HAZARD_PATHS } from "./firebase-config.js";
 import { ref, get, update } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-database.js";
 import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+import { formatDateForInput } from "./date-utils.js";
 
 // LOGOUT
 document.getElementById("logoutBtn").addEventListener("click", async () => {
@@ -52,7 +53,7 @@ async function loadHazardData() {
             document.getElementById("location").value = data.location || "";
             document.getElementById("latitude").value = data.latitude || "";
             document.getElementById("longitude").value = data.longitude || "";
-            document.getElementById("reportDate").value = data.date || "";
+            document.getElementById("reportDate").value = formatDateForInput(data.date);
             document.getElementById("userAgent").value = data.userAgent || "";
             document.getElementById("status").value = data.status || "New";
 

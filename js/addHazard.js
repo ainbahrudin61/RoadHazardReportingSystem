@@ -1,6 +1,7 @@
 import { auth, database, HAZARD_PATH } from "./firebase-config.js";
 import { ref, push, set } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-database.js";
 import { signOut } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+import { formatDateForInput } from "./date-utils.js";
 
 // =========================================
 // LOGOUT
@@ -16,7 +17,7 @@ document.getElementById("logoutBtn").addEventListener("click", async () => {
 // =========================================
 const dateInput = document.getElementById("reportDate");
 const now = new Date();
-const localDate = now.toISOString().split("T")[0];
+const localDate = formatDateForInput(now);
 dateInput.value = localDate;
 
 // =========================================
@@ -105,7 +106,7 @@ form.addEventListener("submit", async (e) => {
         form.reset();
         previewImage.style.display = "none";
         imageBase64 = "";
-        dateInput.value = new Date().toISOString().split("T")[0];
+        dateInput.value = formatDateForInput(new Date());
         window.location.href = "hazards.html";
     } catch (error) {
         console.error(error);

@@ -1,6 +1,7 @@
 import { auth, database, HAZARD_PATHS, USER_PATH } from "./firebase-config.js";
 import { ref, onValue } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-database.js";
 import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+import { formatDateForDisplay } from "./date-utils.js";
 
 // ==============================
 // TOTAL USERS
@@ -106,7 +107,7 @@ function displayRecentReports(reportList) {
     const recent = reportList.slice(0, 5);
 
     recent.forEach((report, index) => {
-        const displayDate = report.date || "-";
+        const displayDate = formatDateForDisplay(report.date);
         const displayLocation = report.location || "-";
         const idNumber = index + 1;
 

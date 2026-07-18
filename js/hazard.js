@@ -1,6 +1,7 @@
 import { auth, database, HAZARD_PATH, HAZARD_PATHS } from "./firebase-config.js";
 import { ref, onValue, remove } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-database.js";
 import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+import { formatDateForDisplay, normalizeDateForComparison } from "./date-utils.js";
 
 const tableBody = document.getElementById("hazardTableBody");
 const searchInput = document.getElementById("searchInput");
@@ -83,7 +84,7 @@ function renderTable(data) {
             <td>
                 <img src="${hazard.image || '../images/hazard_bg.jpg'}" alt="evidence" class="table-image">
             </td>
-            <td>${hazard.date || "-"}</td>
+            <td>${formatDateForDisplay(hazard.date)}</td>
             <td>
                 <span class="status ${statusClass(hazard.status)}">
                     ${hazard.status || "New"}
@@ -134,7 +135,7 @@ function filterData() {
         
         const matchHazardType = hazardType === "" || hazard.hazardType === hazardType;
         const matchStatus = status === "" || hazard.status === status;
-        const matchDate = date === "" || hazard.date === date;
+        const matchDate = date === "" || normalizeDateForComparison(hazard.date) === normalizeDateForComparison(date);
 
         return matchKeyword && matchHazardType && matchStatus && matchDate;
     });

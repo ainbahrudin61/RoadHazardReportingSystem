@@ -1,6 +1,7 @@
 import { auth, database, HAZARD_PATH } from "./firebase-config.js";
 import { ref, get } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-database.js";
 import { signOut } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+import { formatDateForDisplay } from "./date-utils.js";
 
 // =======================================
 // LOGOUT
@@ -52,7 +53,7 @@ get(hazardRef)
         document.getElementById("location").textContent = data.location || "-";
         document.getElementById("latitude").textContent = data.latitude || "-";
         document.getElementById("longitude").textContent = data.longitude || "-";
-        document.getElementById("date").textContent = data.date || "-";
+        document.getElementById("date").textContent = formatDateForDisplay(data.date);
         document.getElementById("time").textContent = data.time || "-";
         document.getElementById("userAgent").textContent = data.userAgent || "-";
 

@@ -1,6 +1,6 @@
-import { auth, database, HAZARD_PATH, USER_PATH } from "./firebase-config.js";
+import { auth, database, HAZARD_PATHS, USER_PATH } from "./firebase-config.js";
 import { ref, onValue } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-database.js";
-import { signOut } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 
 // ==============================
 // TOTAL USERS
@@ -19,46 +19,77 @@ onValue(usersRef, (snapshot) => {
 // ==============================
 // TOTAL REPORTS
 // ==============================
-const hazardRef = ref(database, HAZARD_PATH);
+const reportMap = new Map();
 
-onValue(hazardRef, (snapshot) => {
-    let totalReports = 0;
+function renderDashboard(reportList) {
+    let totalReports = reportList.length;
     let openReports = 0;
     let resolvedReports = 0;
-    const reportList = [];
 
-    if (snapshot.exists()) {
-        snapshot.forEach((child) => {
-            const data = child.val();
-            totalReports++;
-
-            switch (data.status) {
-                case "New":
-                case "Under Investigation":
-                case "Repair":
-                    openReports++;
-                    break;
-                case "Resolved":
-                    resolvedReports++;
-                    break;
-            }
-
-            reportList.push({
-                firebaseId: child.key,
-                user: data.username || data.user || "-",
-                hazardType: data.hazardType || "-",
-                status: data.status || "-",
-                createdAt: data.createdAt || "",
-                date: data.date || ""
-            });
-        });
-    }
+    reportList.forEach((report) => {
+        switch (report.status) {
+            case "New":
+            case "Under Investigation":
+            case "Repair":
+                openReports++;
+                break;
+            case "Resolved":
+                resolvedReports++;
+                break;
+        }
+    });
 
     document.getElementById("totalReports").textContent = totalReports;
     document.getElementById("openReports").textContent = openReports;
     document.getElementById("resolvedReports").textContent = resolvedReports;
 
     displayRecentReports(reportList);
+}
+
+function syncReports(snapshot, path) {
+    if (!snapshot.exists()) return;
+
+    snapshot.forEach((child) => {
+        const data = child.val() || {};
+        const key = `${path}/${child.key}`;
+        const existing = reportMap.get(key) || {};
+
+        const normalizedReport = {
+            firebaseId: child.key,
+            sourcePath: path,
+            ...existing,
+            ...data,
+            user: data.username || data.user || data.email || data.reportedBy || existing.user || existing.email || existing.reportedBy || "-",
+            hazardType: data.hazardType || existing.hazardType || "-",
+            status: data.status || existing.status || "New",
+            createdAt: data.createdAt || existing.createdAt || 0,
+            date: data.date || existing.date || "-",
+            location: data.location || existing.location || "-"
+        };
+
+        reportMap.set(key, normalizedReport);
+    });
+
+    const reportList = Array.from(reportMap.values());
+    renderDashboard(reportList);
+}
+
+function startDashboardSync() {
+    HAZARD_PATHS.forEach((path) => {
+        const hazardRef = ref(database, path);
+        onValue(hazardRef, (snapshot) => {
+            syncReports(snapshot, path);
+        });
+    });
+}
+
+onAuthStateChanged(auth, (user) => {
+    if (!user) {
+        window.location.replace("login.html");
+        return;
+    }
+
+    startDashboardSync();
 });
 
 // ==============================
@@ -76,6 +107,7 @@ function displayRecentReports(reportList) {
 
     recent.forEach((report, index) => {
         const displayDate = report.date || "-";
+        const displayLocation = report.location || "-";
         const idNumber = index + 1;
 
         table.innerHTML += `
@@ -83,10 +115,11 @@ function displayRecentReports(reportList) {
                 <td>${idNumber}</td>
                 <td>${report.user}</td>
                 <td>${report.hazardType}</td>
+                <td>${displayLocation}</td>
                 <td>${displayDate}</td>
                 <td>
                     <span class="status ${formatStatus(report.status)}">
-                        ${report.status}
+                        ${report.status || "New"}
                     </span>
                 </td>
             </tr>

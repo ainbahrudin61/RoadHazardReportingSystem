@@ -1,6 +1,6 @@
-import { auth, database, HAZARD_PATH } from "./firebase-config.js";
+import { auth, database, HAZARD_PATH, HAZARD_PATHS } from "./firebase-config.js";
 import { ref, get, update } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-database.js";
-import { signOut } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 
 // LOGOUT
 document.getElementById("logoutBtn").addEventListener("click", async () => {
@@ -24,44 +24,64 @@ const form = document.getElementById("editHazardForm");
 const previewImage = document.getElementById("previewImage");
 const photoInput = document.getElementById("photo");
 let imageBase64 = "";
+let currentHazardRef = null;
 
-// LOAD DATA
-const hazardRef = ref(database, `${HAZARD_PATH}/${hazardId}`);
+async function loadHazardData() {
+    if (!hazardId) {
+        alert("Invalid Hazard ID.");
+        window.location.href = "hazards.html";
+        return;
+    }
 
-get(hazardRef)
-    .then((snapshot) => {
-        if (!snapshot.exists()) {
-            alert("Hazard not found.");
-            window.location.href = "hazards.html";
+    const candidatePaths = Array.from(new Set([...HAZARD_PATHS, HAZARD_PATH]));
+
+    for (const path of candidatePaths) {
+        const hazardRef = ref(database, `${path}/${hazardId}`);
+
+        try {
+            const snapshot = await get(hazardRef);
+            if (!snapshot.exists()) continue;
+
+            currentHazardRef = hazardRef;
+            const data = snapshot.val();
+
+            document.getElementById("hazardId").value = indexNumber || hazardId || "1";
+            document.getElementById("username").value = data.username || "-";
+            document.getElementById("hazardType").value = data.hazardType || "";
+            document.getElementById("description").value = data.description || "";
+            document.getElementById("location").value = data.location || "";
+            document.getElementById("latitude").value = data.latitude || "";
+            document.getElementById("longitude").value = data.longitude || "";
+            document.getElementById("reportDate").value = data.date || "";
+            document.getElementById("userAgent").value = data.userAgent || "";
+            document.getElementById("status").value = data.status || "New";
+
+            imageBase64 = data.image || "";
+            if (imageBase64 !== "") {
+                previewImage.src = imageBase64;
+                previewImage.style.display = "block";
+            } else {
+                previewImage.style.display = "none";
+            }
+
             return;
+        } catch (error) {
+            console.error(`Failed to load hazard from ${path}`, error);
         }
+    }
 
-        const data = snapshot.val();
+    alert("Hazard not found.");
+    window.location.href = "hazards.html";
+}
 
-        // Use index number as ID
-        document.getElementById("hazardId").value = indexNumber || "1";
-        document.getElementById("username").value = data.username || "-";
-        document.getElementById("hazardType").value = data.hazardType || "";
-        document.getElementById("description").value = data.description || "";
-        document.getElementById("location").value = data.location || "";
-        document.getElementById("latitude").value = data.latitude || "";
-        document.getElementById("longitude").value = data.longitude || "";
-        document.getElementById("reportDate").value = data.date || "";
-        document.getElementById("userAgent").value = data.userAgent || "";
-        document.getElementById("status").value = data.status || "New";
+onAuthStateChanged(auth, (user) => {
+    if (!user) {
+        window.location.replace("login.html");
+        return;
+    }
 
-        imageBase64 = data.image || "";
-        if (imageBase64 !== "") {
-            previewImage.src = imageBase64;
-            previewImage.style.display = "block";
-        } else {
-            previewImage.style.display = "none";
-        }
-    })
-    .catch((error) => {
-        console.error(error);
-        alert("Failed to load hazard data.");
-    });
+    loadHazardData();
+});
 
 // CHANGE IMAGE
 photoInput.addEventListener("change", function () {
@@ -100,8 +120,13 @@ form.addEventListener("submit", async (e) => {
         updatedAt: new Date().getTime()
     };
 
+    if (!currentHazardRef) {
+        alert("Hazard data could not be loaded yet.");
+        return;
+    }
+
     try {
-        await update(hazardRef, updatedData);
+        await update(currentHazardRef, updatedData);
         alert("Hazard updated successfully.");
         window.location.href = "hazards.html";
     } catch (error) {

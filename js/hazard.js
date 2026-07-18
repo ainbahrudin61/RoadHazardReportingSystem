@@ -1,6 +1,6 @@
-import { auth, database, HAZARD_PATH } from "./firebase-config.js";
+import { auth, database, HAZARD_PATH, HAZARD_PATHS } from "./firebase-config.js";
 import { ref, onValue, remove } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-database.js";
-import { signOut } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 
 const tableBody = document.getElementById("hazardTableBody");
 const searchInput = document.getElementById("searchInput");
@@ -10,25 +10,49 @@ const dateFilter = document.getElementById("dateFilter");
 const resetBtn = document.getElementById("resetBtn");
 
 let allHazards = [];
+const hazardMap = new Map();
 
 // ======================================
 // LOAD DATA FROM FIREBASE
 // ======================================
-const hazardsRef = ref(database, HAZARD_PATH);
+function syncHazards(snapshot, path) {
+    if (!snapshot.exists()) return;
 
-onValue(hazardsRef, (snapshot) => {
-    allHazards = [];
-    if (snapshot.exists()) {
-        snapshot.forEach((child) => {
-            allHazards.push({
-                firebaseId: child.key,
-                ...child.val()
-            });
+    snapshot.forEach((child) => {
+        const data = child.val() || {};
+        const key = `${path}/${child.key}`;
+        const existing = hazardMap.get(key) || {};
+
+        hazardMap.set(key, {
+            firebaseId: child.key,
+            sourcePath: path,
+            ...existing,
+            ...data,
+            user: data.username || data.user || data.email || data.reportedBy || existing.user || existing.email || existing.reportedBy || "-"
         });
-    }
-    // Sort by latest first
+    });
+
+    allHazards = Array.from(hazardMap.values());
     allHazards.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
     renderTable(allHazards);
+}
+
+function startHazardSync() {
+    HAZARD_PATHS.forEach((path) => {
+        const hazardsRef = ref(database, path);
+        onValue(hazardsRef, (snapshot) => {
+            syncHazards(snapshot, path);
+        });
+    });
+}
+
+onAuthStateChanged(auth, (user) => {
+    if (!user) {
+        window.location.replace("login.html");
+        return;
+    }
+
+    startHazardSync();
 });
 
 // ======================================
@@ -40,7 +64,7 @@ function renderTable(data) {
     if (data.length === 0) {
         tableBody.innerHTML = `
             <tr>
-                <td colspan="5">No hazard reports found.</td>
+                <td colspan="7">No hazard reports found.</td>
             </tr>
         `;
         return;
@@ -53,8 +77,10 @@ function renderTable(data) {
         tableBody.innerHTML += `
         <tr>
             <td>${idNumber}</td>
-            <td>${hazard.username || "-"}</td>
+            <td>${hazard.user || hazard.username || "-"}</td>
             <td>${hazard.hazardType || "-"}</td>
+            <td>${hazard.location || "-"}</td>
+            <td>${hazard.date || "-"}</td>
             <td>
                 <span class="status ${statusClass(hazard.status)}">
                     ${hazard.status || "New"}
@@ -67,7 +93,7 @@ function renderTable(data) {
                 <button class="edit-btn" title="Edit report" aria-label="Edit report" data-id="${hazard.firebaseId}" data-index="${idNumber}">
                     <i class="fa-solid fa-pen"></i>
                 </button>
-                <button class="delete-btn" title="Delete report" aria-label="Delete report" data-id="${hazard.firebaseId}" data-index="${idNumber}">
+                <button class="delete-btn" title="Delete report" aria-label="Delete report" data-id="${hazard.firebaseId}" data-index="${idNumber}" data-path="${hazard.sourcePath || HAZARD_PATH}">
                     <i class="fa-solid fa-trash"></i>
                 </button>
             </td>
@@ -138,6 +164,7 @@ tableBody.addEventListener("click", async (e) => {
 
     const firebaseId = button.dataset.id;
     const indexNumber = button.dataset.index;
+    const hazardPath = button.dataset.path || HAZARD_PATH;
 
     if (button.classList.contains("view-btn")) {
         window.location.href = `viewHazard.html?id=${firebaseId}&index=${indexNumber}`;
@@ -152,7 +179,7 @@ tableBody.addEventListener("click", async (e) => {
         if (!confirmDelete) return;
 
         try {
-            await remove(ref(database, `${HAZARD_PATH}/${firebaseId}`));
+            await remove(ref(database, `${hazardPath}/${firebaseId}`));
             alert("Hazard deleted successfully.");
         } catch (error) {
             alert(error.message);

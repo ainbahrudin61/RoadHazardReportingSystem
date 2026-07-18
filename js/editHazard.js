@@ -46,7 +46,7 @@ async function loadHazardData() {
             currentHazardRef = hazardRef;
             const data = snapshot.val();
 
-            document.getElementById("hazardId").value = indexNumber || hazardId || "1";
+            document.getElementById("hazardId").value = data.hazardId || hazardId || "-";
             document.getElementById("username").value = data.username || "-";
             document.getElementById("hazardType").value = data.hazardType || "";
             document.getElementById("description").value = data.description || "";

@@ -45,8 +45,8 @@ get(hazardRef)
 
         const data = snapshot.val();
 
-        // Use index number as ID
-        document.getElementById("hazardId").textContent = indexNumber || "1";
+        // Show the actual Firebase ID, not the table index
+        document.getElementById("hazardId").textContent = data.hazardId || hazardId || "-";
         document.getElementById("username").textContent = data.username || "-";
         document.getElementById("hazardType").textContent = data.hazardType || "-";
         document.getElementById("description").textContent = data.description || "-";

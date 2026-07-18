@@ -82,7 +82,14 @@ function renderTable(data) {
             <td>${hazard.hazardType || "-"}</td>
             <td>${hazard.location || "-"}</td>
             <td>
-                <img src="${hazard.image || '../images/hazard_bg.jpg'}" alt="evidence" class="table-image">
+                <img
+        src="${
+            hazard.image && hazard.image.trim() !== ""
+                ? `data:image/jpeg;base64,${hazard.image}`
+                : "../images/hazard_bg.jpg"
+        }"
+        alt="evidence"
+        class="table-image">
             </td>
             <td>${formatDateForDisplay(hazard.date)}</td>
             <td>${formatTimeForDisplay(hazard.time)}</td>

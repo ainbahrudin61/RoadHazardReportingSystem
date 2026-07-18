@@ -64,7 +64,7 @@ function renderTable(data) {
     if (data.length === 0) {
         tableBody.innerHTML = `
             <tr>
-                <td colspan="7">No hazard reports found.</td>
+                <td colspan="8">No hazard reports found.</td>
             </tr>
         `;
         return;
@@ -80,6 +80,9 @@ function renderTable(data) {
             <td>${hazard.user || hazard.username || "-"}</td>
             <td>${hazard.hazardType || "-"}</td>
             <td>${hazard.location || "-"}</td>
+            <td>
+                <img src="${hazard.image || '../images/hazard_bg.jpg'}" alt="evidence" class="table-image">
+            </td>
             <td>${hazard.date || "-"}</td>
             <td>
                 <span class="status ${statusClass(hazard.status)}">
